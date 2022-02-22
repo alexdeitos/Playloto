@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #localapps
     "users.apps.UsersConfig",
+    "apploto.apps.ApplotoConfig",
 ]
 
 MIDDLEWARE = [
