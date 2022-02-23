@@ -1,0 +1,11 @@
+ul.menu-index {
+    background-color: #cecece;
+    font-weight: bolder;
+    font-size: 20px;
+}
+ul.menu-index a{
+    color: black;
+    margin: 10px;
+    width: 100%;
+}
+

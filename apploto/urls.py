@@ -4,6 +4,7 @@ from . import views
 app_name = "apploto"
 
 urlpatterns = [
-    path("",views.Index,name="index")
+    path("",views.Index,name="index"),
+    path("mov", views.TabelaMovimento, name="mov"),
 ]
 

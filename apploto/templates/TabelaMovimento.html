@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% block title %}
+Tabela de Movimentação
+{% endblock %}
+{% block conteudo %}
+<div class="container-fluid">
+    <p style="color: black;font-weight: bolder;border: 1px solid black;display: block;width: 250px; padding: 5px;text-align: center;">Ultimo concurso: {{ last_concurso }}</p>     
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">D1</th>
+                <th scope="col">D2</th>
+                <th scope="col">D3</th>
+                <th scope="col">D4</th>
+                <th scope="col">D5</th>
+                <th scope="col">D6</th>
+                <th scope="col">D7</th>
+                <th scope="col">D8</th>
+                <th scope="col">D9</th>
+                <th scope="col">D10</th>
+                <th scope="col">D11</th>
+                <th scope="col">D12</th>
+                <th scope="col">D13</th>
+                <th scope="col">D14</th>
+                <th scope="col">D15</th>
+                <th scope="col">D16</th>
+                <th scope="col">D17</th>
+                <th scope="col">D18</th>
+                <th scope="col">D19</th>
+                <th scope="col">D20</th>
+                <th scope="col">D21</th>
+                <th scope="col">D22</th>
+                <th scope="col">D23</th>
+                <th scope="col">D24</th>
+                <th scope="col">D25</th>
+            </tr>
+        </thead>
+        {% if vetJogos %}
+        {% for jogo in vetJogos %}
+        <tr>
+            {% if jogo.0 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.0 }}</td>
+            {% endif %}
+            {% if jogo.1 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.1 }}</td>
+            {% endif %}
+            {% if jogo.2 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.2 }}</td>
+            {% endif %}
+            {% if jogo.3 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.3 }}</td>
+            {% endif %}
+            {% if jogo.4 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.4 }}</td>
+            {% endif %}
+            {% if jogo.5 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.5 }}</td>
+            {% endif %}
+            {% if jogo.6 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.6 }}</td>
+            {% endif %}
+            {% if jogo.7 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.7 }}</td>
+            {% endif %}
+            {% if jogo.8 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.8 }}</td>
+            {% endif %}
+            {% if jogo.9 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.9 }}</td>
+            {% endif %}
+            {% if jogo.10 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.10 }}</td>
+            {% endif %}
+            {% if jogo.11 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.11 }}</td>
+            {% endif %}
+            {% if jogo.12 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.12 }}</td>
+            {% endif %}
+            {% if jogo.13 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.13 }}</td>
+            {% endif %}
+            {% if jogo.14 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.14 }}</td>
+            {% endif %}
+            {% if jogo.15 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.15 }}</td>
+            {% endif %}
+            {% if jogo.16 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.16 }}</td>
+            {% endif %}
+            {% if jogo.17 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.17 }}</td>
+            {% endif %}
+            {% if jogo.18 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.18 }}</td>
+            {% endif %}
+            {% if jogo.19 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.19 }}</td>
+            {% endif %}
+            {% if jogo.20 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.20 }}</td>
+            {% endif %}
+            {% if jogo.21 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.21 }}</td>
+            {% endif %}
+            {% if jogo.22 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.22 }}</td>
+            {% endif %}
+            {% if jogo.23 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.23 }}</td>
+            {% endif %}
+            {% if jogo.24 == 'x' %}
+            <td style="background-color:black;"></td>
+            {% else %}
+            <td style="background-color:808080">{{ jogo.24 }}</td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    {% endif %}
+</table>
+{% block pagination %}
+{% if is_paginated %}
+<div class="pagination">
+    <span class="page-links">
+        <a href="{{ request.path }}?page=1">Início</a><br>
+        {% if page_obj.has_previous %}
+        <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Anterior</a>
+        {% endif %}
+        <span class="page-current">
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+        </span>
+        {% if page_obj.has_next %}
+        <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">Próximo</a>
+        {% endif %}
+        <br>
+        <a href="{{ request.path }}?page={{ page_obj.paginator.num_pages }}">Final</a>
+    </span>
+</div>
+{% endif %}
+{% endblock %}
+</div>
+{% endblock %}
