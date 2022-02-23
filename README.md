@@ -1,2 +1,2 @@
 # Playloto
-sistema de geração de jogos e analises para lotofácil
+Sistema de geração de jogos e analises para lotofácil
