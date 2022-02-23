@@ -35,6 +35,7 @@ class JogosAdmin(admin.ModelAdmin):
         "B13",
         "B14",
         "B15",
+        "qtd_ganhadores_15",
     )
     
 

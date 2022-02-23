@@ -23,7 +23,7 @@ class Sorteio(models.Model):
     B13 = models.SmallIntegerField()
     B14 = models.SmallIntegerField()
     B15 = models.SmallIntegerField()
-    qtd_ganhadores_15 = models.CharField(max_length=2)
+    qtd_ganhadores_15 = models.CharField(max_length=3)
 
     class Meta:
         get_latest_by = ('concurso')
