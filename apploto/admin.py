@@ -14,8 +14,7 @@ admin.site.unregister(Group)
 @admin.register(Sorteio)
 class JogosAdmin(admin.ModelAdmin):
     list_filter = ('data_sorteio',
-        "B1",
-        "B15",
+        'qtd_ganhadores_15',
     )
     list_display = (
         "concurso",
