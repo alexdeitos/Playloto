@@ -8,15 +8,15 @@
     <!--Boostrap-->
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/apploto/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/apploto/style.css' %}">
     <title>{% block title %}Playloto.com{% endblock %}</title>
 </head>
 <body>
   <div class="container-fluid">
     <header>
         <nav>
-          <a class="logo" href="{% url 'playloto:home' %}">Playloto</a>
+          <a class="logo" href="{% url 'apploto:index' %}">Playloto</a>
           <div class="mobile-menu">
             <div class="line1"></div>
             <div class="line2"></div>
@@ -29,7 +29,7 @@
             {% else %}
             <li><a href="{% url 'login' %}">Login</a></li>
             {% endif %}
-            <li><a href="{% url 'playloto:home' %}">Início</a></li>
+            <li><a href="{% url 'apploto:index' %}">Início</a></li>
             <li><a href="#">Sobre</a></li>
             <li><a href="#">Projetos</a></li>
             <li><a href="#">Contato</a></li>
@@ -40,10 +40,9 @@
         {% if user.is_authenticated %}
           <aside class="lateral col-12">
             <ul>
-              <li><a style="color: black;" href="{% url 'playloto:gameslist' %}">Tabela de Jogos</a></li>
-              <li><a style="color: black;" href="{% url 'playloto:gerajogo'%}">Gerar Jogos</a></li>
-              <li><a style="color: black;" href="{% url 'playloto:planilha' %}">Planilhas</a></li>
-              <li><a style="color: black;" href="http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/lotofacil/!ut/p/a1/04_Sj9CPykssy0xPLMnMz0vMAfGjzOLNDH0MPAzcDbz8vTxNDRy9_Y2NQ13CDA0sTIEKIoEKnN0dPUzMfQwMDEwsjAw8XZw8XMwtfQ0MPM2I02-AAzgaENIfrh-FqsQ9wBmoxN_FydLAGAgNTKEK8DkRrACPGwpyQyMMMj0VAcySpRM!/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_HGK818G0K85260Q5OIRSC42046/res/id=historicoHTML/c=cacheLevelPage/=/" target="blank">Resultados Caixa</a></li>
+              <li><a style="color: black;" href="{% url 'apploto:index' %}">Tabela de Jogos</a></li>
+              <li><a style="color: black;" href="{% url 'apploto:index'%}">Gerar Jogos</a></li>
+              <li><a style="color: black;" href="{% url 'apploto:index' %}">Planilhas</a></li>
             </ul>
           </aside>
         {% endif %}
