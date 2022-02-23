@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Sorteio
+from django.core.paginator import Paginator
 
 # Create your views here.
 def Index(request):
-    return render(request, 'index.html')
+    last = Sorteio.objects.all().latest()
+    return render(request, 'index.html', {'last' : last})
 
 @login_required
 def TabelaMovimento(request):

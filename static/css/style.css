@@ -9,3 +9,34 @@ ul.menu-index a{
     width: 100%;
 }
 
+.table td, tr, thead,tbody {
+    border: 2px solid black ;
+}
+
+.table { 
+    margin: 0 auto;
+}
+
+.table-last td,tr,thead, tbody {
+    border: none;
+}
+
+.table-last {
+    margin-top: 10px;
+}
+
+.table-last thead {
+    background-color: black;
+}
+
+.index {
+    margin-top: 30px;
+}
+
+.login {
+    margin: 0 auto;
+    margin-top: 10%;
+    background-color: #cecece;
+    padding: 10px;
+}
+

@@ -1,37 +1,17 @@
-{% extends "base.html" %}
-
+{% extends 'base.html' %}
 {% block conteudo %}
-
-  {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
-  {% endif %}
-
-  {% if next %}
-    {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
-      please login with an account that has access.</p>
-    {% else %}
-      <p>Please login to see this page.</p>
-    {% endif %}
-  {% endif %}
-
-  <form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <table>
-      <tr>
-        <td>{{ form.username.label_tag }}</td>
-        <td>{{ form.username }}</td>
-      </tr>
-      <tr>
-        <td>{{ form.password.label_tag }}</td>
-        <td>{{ form.password }}</td>
-      </tr>
-    </table>
-    <input type="submit" value="login" />
-    <input type="hidden" name="next" value="{{ next }}" />
-  </form>
-
-  {# Assumes you setup the password_reset view in your URLconf #}
-  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-
+<div class="text-center col-6 login">
+    <form class="form-signin" action="{% url 'login'  %}" method="post">
+        {% csrf_token %}
+            <h1 class="h3 mb-3 font-weight-normal">Acessar a sua conta</h1>
+            <label for="form.id_username" class="sr-only">Usuário</label>
+            <input type="text" id="form.id_username" class="form-control" name="{{ form.username.html_name}}" placeholder="Email address" required autofocus>
+            <label for="form.id_password" class="sr-only">Senha</label>
+            <input type="password" id="form.id_password" class="form-control" placeholder="Password" required name="{{ form.password.html_name}}">
+            <br>
+            <button class="btn btn-lg btn-success " type="submit">Acessar</button>
+            <br><br><br>
+            <p><a href="{% url 'password_reset' %}">Esqueceu sua senha?</a></p>
+    </form>
+</div>
 {% endblock %}
