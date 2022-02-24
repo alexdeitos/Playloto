@@ -40,3 +40,15 @@ ul.menu-index a{
     padding: 10px;
 }
 
+ul.menu {
+    width: 100%;
+    list-style: none;
+    text-align: right;
+    display: flex;
+    margin-left: 83%;
+}
+
+ul.menu a{
+    color: black;
+    font-weight: bolder;
+}

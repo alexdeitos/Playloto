@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Sorteio
 from django.core.paginator import Paginator
+from datetime import date, timedelta
+
 
 # Create your views here.
 def Index(request):
@@ -10,9 +12,13 @@ def Index(request):
 
 @login_required
 def TabelaMovimento(request):
+    today_date = date.today()
+    td = timedelta(15)
+    data =  today_date - td
     last = Sorteio.objects.all().latest()
     last_concurso = last.concurso
-    query_set = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').order_by('-concurso')[:10]
+    
+    query_set = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').filter(data_sorteio__gte=data).order_by('concurso')
     result = []
     # lista_games agora é uma lista de jogos de 15 dezenas cada jogo
     # contador = 0 
@@ -44,6 +50,7 @@ def TabelaMovimento(request):
     context = {
         'vetJogos': vetJogos,
         'last_concurso' : last_concurso,
+        
     }
 
     return render(request, 'TabelaMovimento.html',context)
