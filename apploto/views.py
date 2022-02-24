@@ -1,9 +1,12 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import Sorteio
 from django.core.paginator import Paginator
 from datetime import date, timedelta
 from random import randint
+from openpyxl import Workbook
+from .cores_celulas import *
 
 # Create your views here.
 def Index(request):
@@ -19,12 +22,16 @@ def TabelaMovimento(request):
     last_concurso = last.concurso
     
     query_set = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').filter(data_sorteio__gte=data).order_by('concurso')
+    query_set1 = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').filter(data_sorteio__gte=data).order_by('-concurso')
     result = []
+    result1 = []
     # lista_games agora é uma lista de jogos de 15 dezenas cada jogo
     # contador = 0 
     
     for c in query_set:
         result.append(c)
+    for c in query_set1:
+        result1.append(c)
     #        contador += 1
     #        if contador == 11: 
     #            break
@@ -39,6 +46,7 @@ def TabelaMovimento(request):
                'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x']
 
     vetJogos = list()
+    vetJogos1 = list()
     for sorteio in result:
         for dezena in sorteio:
             vetJogo[dezena-1] = dezena
@@ -46,17 +54,25 @@ def TabelaMovimento(request):
         vetJogo.clear()
         vetJogo = ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x',
                    'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x']
+    for sorteio in result1:
+        for dezena in sorteio:
+            vetJogo[dezena-1] = dezena
+        vetJogos1.append(vetJogo[:])
+        vetJogo.clear()
+        vetJogo = ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x',
+                   'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x']
     
     context = {
         'vetJogos': vetJogos,
-        'last_concurso' : last_concurso,
-        
+        'vetJogos1' : vetJogos1,
+        'last_concurso' : last_concurso, 
     }
 
     return render(request, 'TabelaMovimento.html',context)
 
 @login_required
 def Sorteia(request):
+    
     while True:
         #variáveis de validação
         countRepetidas = 0
@@ -67,6 +83,7 @@ def Sorteia(request):
         vetorFibonacci = [2, 3, 5, 8, 13, 21]
         last_game = list()
         novo_sorteio = list()
+        fixas = []
         
         #adiciona o último sorteio ao last
         last = Sorteio.objects.all().latest()
@@ -128,3 +145,94 @@ def Sorteia(request):
     }
     
     return render(request, 'sorteia.html', context)
+
+@login_required
+def Planilha(request):
+    wb = Workbook()
+    ws = wb.active
+
+    query_set = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15')
+    result = []
+   
+   # lista_games agora é uma lista de jogos de 15 dezenas cada jogo
+   # contador = 0 
+    
+    for c in query_set:
+        result.append(c)
+    
+    # contador += 1
+    # if contador == 11: 
+    # break
+    
+    #result.reverse()
+
+    #global i
+
+    letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+               'U', 'V', 'W','X','Y','Z', 'AA', 'AB', 'AC']
+    vetJogo = ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x',
+               'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x']
+    sep = [5, 10, 15, 20]
+    vetJogos = list()
+    vetJogosFinal = list()
+    ciclo = list()
+    contCiclo = 0
+    cont2 = 0
+    vetTemp = list()
+    lista_gameslist = []
+    for vet in result:
+        for num in vet:
+            vetJogo[num-1] = num
+        vetJogos.append(vetJogo[:])
+        vetJogo.clear()
+        vetJogo = ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x',
+                   'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x']
+
+    for jogo in vetJogos:
+        for j in jogo:
+            if cont2 in sep:
+                vetTemp.append('||')
+            vetTemp.append(j)
+            cont2 += 1
+        cont2 = 0
+        vetJogosFinal.append(vetTemp[:])
+        vetTemp.clear()
+    
+    for line in range(0, len(vetJogosFinal)):  
+        cont1 = 0
+        for n in vetJogosFinal[line]:
+            cont1 += 1
+            celula = ws.cell(row=line+1, column=cont1)
+            if n == 'x':
+                celula.fill = black1()
+            elif n == '||':
+                celula.fill = black1()
+            else:
+                celula.fill = white()
+                if n not in ciclo:
+                    ciclo.append(n)
+            celula.value = n
+            celula.border = thin_border1()
+            celula.font = fonte1()
+            celula.alignment = alinhamento1()
+        for letra in letters:
+            ws.column_dimensions[str(letra)].width = 4
+        if len(ciclo) == 25:
+            contCiclo += 1
+            for i in range(1,30):
+                if ws.cell(row=line + 1, column=i).value == '||':
+                    ws.cell(row=line + 1, column=i).fill = black1()
+                else:
+                    ws.cell(row=line + 1, column=i).fill = red1()
+            ws.cell(row=line + 1, column=i + 1).value = f'Ciclo: {contCiclo}'
+            ws.cell(row=line + 1, column=i + 1).font = fonte1()
+            ciclo.clear()
+        
+            
+
+    response = HttpResponse(content_type="application/ms-excel")
+    response['Content-Disposition'] = 'attachment; filename=planilha.xls'
+    wb.save(response) 
+
+    return response    
+    

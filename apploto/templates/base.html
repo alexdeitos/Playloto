@@ -17,7 +17,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-brand stick-right navbar-nav me-auto mb-2 mb-lg-0 ">
+            <ul class="navbar-brand navbar-nav me-auto mb-2 mb-lg-0 ">
               <li class="nav-item">
                 {% if user.is_authenticated %}
                 <li>
@@ -54,6 +54,9 @@
               </li>
               <li class="nav-item">
                 <a href="{% url 'apploto:sorteia' %}">Gerar novo jogo</a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'apploto:planilha' %}">Gerar Planilha de Movimentação</a>
               </li>
             </ul>
           </div>

@@ -7,6 +7,7 @@ app_name = "apploto"
 urlpatterns = [
     path("",views.Index,name="index"),
     path("mov", views.TabelaMovimento, name="mov"),
-    path("sorteia", views.Sorteia, name="sorteia")
+    path("sorteia", views.Sorteia, name="sorteia"),
+    path("planilha", views.Planilha, name="planilha"),
 ]
 
