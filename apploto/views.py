@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Sorteio
 from django.core.paginator import Paginator
 from datetime import date, timedelta
-
+from random import randint
 
 # Create your views here.
 def Index(request):
@@ -54,3 +54,77 @@ def TabelaMovimento(request):
     }
 
     return render(request, 'TabelaMovimento.html',context)
+
+@login_required
+def Sorteia(request):
+    while True:
+        #variáveis de validação
+        countRepetidas = 0
+        impar = fibo = primo = multiplo = moldura = soma = 0
+        vetorPrimos = [2, 3, 5, 7, 11, 13, 17, 19, 23]
+        vetorMoldura = [1, 2, 3, 4, 5, 6, 10, 11, 15, 16, 20, 21, 22, 23, 24, 25]
+        vetorMultiplos = [3, 6, 9, 12, 15, 18, 21, 24]
+        vetorFibonacci = [2, 3, 5, 8, 13, 21]
+        last_game = list()
+        novo_sorteio = list()
+        
+        #adiciona o último sorteio ao last
+        last = Sorteio.objects.all().latest()
+        
+        # adiciona os valores de last a lista last_games
+        last_game.append(last.B1)
+        last_game.append(last.B2)
+        last_game.append(last.B3)
+        last_game.append(last.B4)
+        last_game.append(last.B5)
+        last_game.append(last.B6)
+        last_game.append(last.B7)
+        last_game.append(last.B8)
+        last_game.append(last.B9)
+        last_game.append(last.B10)
+        last_game.append(last.B11)
+        last_game.append(last.B12)
+        last_game.append(last.B13)
+        last_game.append(last.B14)
+        last_game.append(last.B15)
+        
+        while True:
+            aleatorio = randint(1,25)
+            if aleatorio not in novo_sorteio:
+                novo_sorteio.append(aleatorio)
+                if len(novo_sorteio) == 15:
+                    break
+        
+        # realiza um count das variáveis para retornar para o usuário 
+        for n in novo_sorteio:
+            
+            soma += n
+            
+            if n in last_game:
+                countRepetidas += 1
+            if n % 2 == 1:
+                impar += 1
+            if n in vetorPrimos:
+                primo += 1
+            if n in vetorFibonacci:
+                fibo += 1
+            if n in vetorMoldura:
+                moldura += 1
+            if n in vetorMultiplos:
+                multiplo += 1
+
+        if soma > 160 and soma < 210 and countRepetidas > 7 and countRepetidas < 10 and fibo < 4 and fibo > 1 :
+            break
+        # adiciona o resultados das variáveis a uma variável que será enviada ao cliente
+    context = {
+        "novo_sorteio" : novo_sorteio,
+        'impar': impar,
+        'fibo': fibo,
+        'primo': primo,
+        'moldura': moldura,
+        'multiplo': multiplo,
+        'countRepetidas': countRepetidas,
+        'soma' : soma,
+    }
+    
+    return render(request, 'sorteia.html', context)

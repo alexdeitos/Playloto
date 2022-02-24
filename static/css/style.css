@@ -1,3 +1,6 @@
+*{
+    list-style: none;
+}
 ul.menu-index {
     background-color: #cecece;
     font-weight: bolder;
@@ -9,7 +12,7 @@ ul.menu-index a{
     width: 100%;
 }
 
-.table td, tr, thead,tbody {
+.table th, td, tr, thead, tbody {
     border: 2px solid black ;
 }
 
@@ -40,15 +43,63 @@ ul.menu-index a{
     padding: 10px;
 }
 
-ul.menu {
-    width: 100%;
-    list-style: none;
+div#navbarSupportedContent {
     text-align: right;
-    display: flex;
-    margin-left: 83%;
+    padding-left: 80%;
 }
 
-ul.menu a{
+div#navbarSupportedContent a#usuario{
     color: black;
     font-weight: bolder;
+}
+
+.tabela {
+    margin: 0 auto;
+    width: 400px;
+    height: 300px;
+    text-align: center;
+}
+
+div#button {
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px;
+}
+
+div.simulador_loterias{
+    border: 2px solid black;
+    margin: 0 auto ;
+    width: 700px;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.simulador_loterias ul.numeros span {
+    color:black;
+    font-weight: 900;
+    font-size: 45px;
+    padding: 20px;
+}
+
+a.button { 
+    background-color: #cecece;
+    color: Black;
+    font-weight: 500;
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 15px;   
+}
+div.button{
+    text-align: center;
+    margin-top: 25px;
+}
+
+div.properties ul {
+    margin-left: 30%;
+    margin-top: 50px;
+    color: Black;
+    font-weight: 500;
+    font-size: 20px;
 }

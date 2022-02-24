@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Boa Sorte!{% endblock %}
+{% block conteudo %}
+    {% if novo_sorteio %}
+        <div class="simulador_loterias">
+            <ul class="numeros">
+                <li>
+                    <span>{{ novo_sorteio.0 }}</span>
+                    <span>{{ novo_sorteio.1 }}</span>
+                    <span>{{ novo_sorteio.2 }}</span>
+                    <span>{{ novo_sorteio.3 }}</span>
+                    <span>{{ novo_sorteio.4 }}</span>
+                </li>
+                <li>
+                    <span>{{ novo_sorteio.5 }}</span>
+                    <span>{{ novo_sorteio.6 }}</span>
+                    <span>{{ novo_sorteio.7 }}</span>
+                    <span>{{ novo_sorteio.8 }}</span>
+                    <span>{{ novo_sorteio.9 }}</span>
+                </li>
+                <li>
+                    <span>{{ novo_sorteio.10 }}</span>
+                    <span>{{ novo_sorteio.11 }}</span>
+                    <span>{{ novo_sorteio.12 }}</span>
+                    <span>{{ novo_sorteio.13 }}</span>
+                    <span>{{ novo_sorteio.14 }}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="button">
+            <a class="button" href="{% url 'apploto:sorteia' %}">Sortear!</a>
+        </div>
+        <div class="properties">
+            <ul>
+                <li>Repetidas...:&nbsp;{{ countRepetidas }}</li>
+                <li>Fibonacci....:&nbsp;{{ fibo }}</li>
+                <li>Primo...........:&nbsp;{{ primo }}</li>
+                <li>Impar...........:&nbsp;{{ impar }}</li>
+                <li>Moldura......:&nbsp;{{ moldura }}</li>
+                <li>Multiplo......:&nbsp;{{ multiplo }}</li>
+                <li>Soma............:&nbsp;{{ soma }}</li>
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}
