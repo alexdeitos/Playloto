@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     #MyApps
     "users.apps.UsersConfig",
     "apploto.apps.ApplotoConfig",
+    
     #DjangoApps
     'django.contrib.admin',
     'django.contrib.auth',

@@ -52,7 +52,9 @@
                     </table>
                     <input style="margin-top:10px;" type="submit" value="Gerar com Fixas">
                 </form>
+                {% if lista_fixas %}
                 <li>Fixas : {{ lista_fixas }}</li>
+                {% endif %}
             </ul>
         </div>
     {% endif %}
