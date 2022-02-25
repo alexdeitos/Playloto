@@ -7,6 +7,7 @@ from datetime import date, timedelta
 from random import randint
 from openpyxl import Workbook
 from .cores_celulas import *
+from .forms import FixasForm
 
 # Create your views here.
 def Index(request):
@@ -76,15 +77,16 @@ def Sorteia(request):
     while True:
         #variáveis de validação
         countRepetidas = 0
-        impar = fibo = primo = multiplo = moldura = soma = 0
+        impar = fibo = primo = multiplo = moldura = soma = countfixas = 0
         vetorPrimos = [2, 3, 5, 7, 11, 13, 17, 19, 23]
         vetorMoldura = [1, 2, 3, 4, 5, 6, 10, 11, 15, 16, 20, 21, 22, 23, 24, 25]
         vetorMultiplos = [3, 6, 9, 12, 15, 18, 21, 24]
         vetorFibonacci = [2, 3, 5, 8, 13, 21]
         last_game = list()
         novo_sorteio = list()
-        fixas = []
-        
+        form = FixasForm()
+        fixas = ''
+        lista_fixas =[]
         #adiciona o último sorteio ao last
         last = Sorteio.objects.all().latest()
         
@@ -112,6 +114,17 @@ def Sorteia(request):
                 if len(novo_sorteio) == 15:
                     break
         
+        if request.method == 'POST':
+            # Create a form instance and populate it with data from the request (binding):
+            form = FixasForm(request.POST)
+            # Check if the form is valid:
+            if form.is_valid():
+                # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+                fixas = form.cleaned_data['fixas']
+                fixas = fixas.split(',')
+                for f in fixas:
+                    lista_fixas.append(int(f))
+        
         # realiza um count das variáveis para retornar para o usuário 
         for n in novo_sorteio:
             
@@ -129,10 +142,13 @@ def Sorteia(request):
                 moldura += 1
             if n in vetorMultiplos:
                 multiplo += 1
-
-        if soma > 160 and soma < 210 and countRepetidas > 7 and countRepetidas < 10 and fibo < 4 and fibo > 1 :
+            if n in lista_fixas:
+                countfixas += 1
+                
+        if soma > 160 and soma < 210 and countRepetidas > 7 and countRepetidas < 10 and fibo < 4 and fibo > 1 and countfixas == len(lista_fixas):
             break
         # adiciona o resultados das variáveis a uma variável que será enviada ao cliente
+
     context = {
         "novo_sorteio" : novo_sorteio,
         'impar': impar,
@@ -142,6 +158,9 @@ def Sorteia(request):
         'multiplo': multiplo,
         'countRepetidas': countRepetidas,
         'soma' : soma,
+        'form' : form,
+        'fixas': fixas,
+        'lista_fixas' : lista_fixas,
     }
     
     return render(request, 'sorteia.html', context)

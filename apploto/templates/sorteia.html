@@ -32,13 +32,27 @@
         </div>
         <div class="properties">
             <ul>
-                <li>Repetidas...:&nbsp;&nbsp;&nbsp;{{ countRepetidas }}</li>
-                <li>Fibonacci....:&nbsp;&nbsp;&nbsp;{{ fibo }}</li>
-                <li>Primo...........:&nbsp;&nbsp;&nbsp;{{ primo }}</li>
-                <li>Impar...........:&nbsp;&nbsp;&nbsp;{{ impar }}</li>
-                <li>Moldura......:&nbsp;&nbsp;&nbsp;{{ moldura }}</li>
-                <li>Multiplo......:&nbsp;&nbsp;&nbsp;{{ multiplo }}</li>
-                <li>Soma............:&nbsp;&nbsp;&nbsp;{{ soma }}</li>
+                <li>
+                    <span>Repetidas...:&nbsp;&nbsp;&nbsp;{{ countRepetidas }}&nbsp;</span>
+                    <span>Fibonacci....:&nbsp;&nbsp;&nbsp;{{ fibo }}&nbsp;</span>
+                    <span>Primo...........:&nbsp;&nbsp;&nbsp;{{ primo }}&nbsp;</span>
+                </li>
+                <li>
+                    <span>Impar...........:&nbsp;&nbsp;&nbsp;{{ impar }}&nbsp;</span>
+                    <span>Moldura......:&nbsp;&nbsp;&nbsp;{{ moldura }}&nbsp;</span>
+                    <span>Multiplo......:&nbsp;&nbsp;&nbsp;{{ multiplo }}&nbsp;</span>
+                </li>
+                <li>
+                    <span>Soma............:&nbsp;&nbsp;&nbsp;{{ soma }}&nbsp;</span>
+                </li>
+                <form action="sorteia" method="post">
+                    {% csrf_token %}
+                    <table>
+                        Caso queira informe as dezenas fixas aqui <br>separadas por vírgula: {{ form.as_table }}
+                    </table>
+                    <input style="margin-top:10px;" type="submit" value="Gerar com Fixas">
+                </form>
+                <li>Fixas : {{ lista_fixas }}</li>
             </ul>
         </div>
     {% endif %}
