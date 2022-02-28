@@ -1,5 +1,7 @@
 *{
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 ul.menu-index {
     background-color: #cecece;
@@ -114,20 +116,25 @@ div.mov ul li span {
 div.mov{
     margin-top: 10px;
     text-align: center;
-    position: absolute;
-    top: 950px;
-    left: 270px;
+    margin: 0 auto;
 }
 
 div.mov1 {
+    position: relative;
     margin-top: 10px;
-    display: block;
-    text-align: center;
-    position: absolute;
-    left: 195px;
+    text-align: center;    
 }
 
+div.mov1 table th {
+    border: 1px solid white;
+    padding: 5px;
+}
 div.mov h1{
     color: black;
     margin-bottom: 20px;
+}
+
+div.last {
+    margin: 0 auto;
+    
 }

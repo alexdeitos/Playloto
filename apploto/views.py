@@ -1,21 +1,23 @@
+from itertools import count
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.template import Library;register = Library()
 from .models import Sorteio
 from django.core.paginator import Paginator
 from datetime import date, timedelta
 from random import randint
 from openpyxl import Workbook
 from .cores_celulas import *
-from .forms import FixasForm
+from .forms import FixasForm, Valida
 
 # Create your views here.
-def Index(request):
+def index(request):
     last = Sorteio.objects.all().latest()
     return render(request, 'index.html', {'last' : last})
 
 @login_required
-def TabelaMovimento(request):
+def tabelaMovimento(request):
     today_date = date.today()
     td = timedelta(15)
     data =  today_date - td
@@ -62,7 +64,18 @@ def TabelaMovimento(request):
         vetJogo.clear()
         vetJogo = ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x',
                    'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x']
-    
+    ciclo = []
+    countCiclo = 0
+    for jogo in vetJogos:
+        for dezena in jogo:
+            if dezena in (range(1,25)):
+                if dezena not in ciclo:
+                    ciclo.append(dezena)
+                if len(ciclo) == 25:
+                    countCiclo += 1
+                    context = {'countCiclo' : countCiclo, }
+                    
+                    
     context = {
         'vetJogos': vetJogos,
         'vetJogos1' : vetJogos1,
@@ -72,7 +85,7 @@ def TabelaMovimento(request):
     return render(request, 'TabelaMovimento.html',context)
 
 @login_required
-def Sorteia(request):
+def sorteia(request):
     
     while True:
         #variáveis de validação
@@ -127,7 +140,6 @@ def Sorteia(request):
         
         # realiza um count das variáveis para retornar para o usuário 
         for n in novo_sorteio:
-            
             soma += n
             
             if n in last_game:
@@ -144,13 +156,13 @@ def Sorteia(request):
                 multiplo += 1
             if n in lista_fixas:
                 countfixas += 1
-                
-        if soma > 160 and soma < 210 and countRepetidas > 7 and countRepetidas < 10 and fibo < 4 and fibo > 1 and countfixas == len(lista_fixas):
+        '''soma > 190 and soma < 200 and'''       
+        if  soma > 190 and soma < 200 and countfixas == len(lista_fixas) and impar < 9 and impar >= 7:
             break
         # adiciona o resultados das variáveis a uma variável que será enviada ao cliente
-
+        
     context = {
-        "novo_sorteio" : novo_sorteio,
+        "novo_sorteio" : sorted(novo_sorteio),
         'impar': impar,
         'fibo': fibo,
         'primo': primo,
@@ -166,7 +178,7 @@ def Sorteia(request):
     return render(request, 'sorteia.html', context)
 
 @login_required
-def Planilha(request):
+def planilha(request):
     wb = Workbook()
     ws = wb.active
 
@@ -198,7 +210,7 @@ def Planilha(request):
     contCiclo = 0
     cont2 = 0
     vetTemp = list()
-    lista_gameslist = []
+    
     for vet in result:
         for num in vet:
             vetJogo[num-1] = num
@@ -245,7 +257,6 @@ def Planilha(request):
                     ws.cell(row=line + 1, column=i).fill = red1()
             ws.cell(row=line + 1, column=i + 1).value = f'Ciclo: {contCiclo}'
             ws.cell(row=line + 1, column=i + 1).font = fonte1()
-            ciclo.clear()
         
             
 
@@ -255,3 +266,54 @@ def Planilha(request):
 
     return response    
     
+@login_required
+def descubra(request):
+    # variables
+    form = Valida()
+    jogo = list()
+    ultimo_sorteio = list()
+    last = Sorteio.objects.all().latest()
+    
+    #definiend last game
+    ultimo_sorteio.append(last.B1)
+    ultimo_sorteio.append(last.B2)
+    ultimo_sorteio.append(last.B3)
+    ultimo_sorteio.append(last.B4)
+    ultimo_sorteio.append(last.B5)
+    ultimo_sorteio.append(last.B6)
+    ultimo_sorteio.append(last.B7)
+    ultimo_sorteio.append(last.B8)
+    ultimo_sorteio.append(last.B9)
+    ultimo_sorteio.append(last.B10)
+    ultimo_sorteio.append(last.B11)
+    ultimo_sorteio.append(last.B12)
+    ultimo_sorteio.append(last.B13)
+    ultimo_sorteio.append(last.B14)
+    ultimo_sorteio.append(last.B15)
+
+    #recieve form from html
+    if request.method == 'POST':
+        # Create a form instance and populate it with data from the request (binding):
+        form = Valida(request.POST)
+        # Check if the form is valid:
+        if form.is_valid():
+        # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+            jogo = form.cleaned_data['jogo']
+            jogo = jogo.split(',')
+            for f in jogo:
+                jogo.append(int(f))    
+    
+    count = 0 
+    for n in ultimo_sorteio:
+        if n in jogo:
+            count += 1
+        
+    context = {
+        "last" : ultimo_sorteio,
+        "count" : count,
+        "range":range(0,5),
+        'form' : form,
+    }
+    
+    return render(request, 'descubra.html', context)
+ 

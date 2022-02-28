@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Boa Sorte!{% endblock %}
+{% block conteudo %}
+{% if last %}
+<div class="simulador_loterias">
+    <ul class="numeros">
+        <li>
+            <span>{{ last.0 }}</span>
+            <span>{{ last.1 }}</span>
+            <span>{{ last.2 }}</span>
+            <span>{{ last.3 }}</span>
+            <span>{{ last.4 }}</span>
+        </li>
+        <li>
+            <span>{{ last.5 }}</span>
+            <span>{{ last.6 }}</span>
+            <span>{{ last.7 }}</span>
+            <span>{{ last.8 }}</span>
+            <span>{{ last.9 }}</span>
+        </li>
+        <li>
+            <span>{{ last.10 }}</span>
+            <span>{{ last.11 }}</span>
+            <span>{{ last.12 }}</span>
+            <span>{{ last.13 }}</span>
+            <span>{{ last.14 }}</span>
+        </li>
+    </ul>
+</div>
+<div class="properties">
+    <ul>
+        <li>
+            <span>Repetidas...:&nbsp;&nbsp;&nbsp;{{ countRepetidas }}&nbsp;</span>
+            <span>Fibonacci....:&nbsp;&nbsp;&nbsp;{{ fibo }}&nbsp;</span>
+            <span>Primo...........:&nbsp;&nbsp;&nbsp;{{ primo }}&nbsp;</span>
+        </li>
+        <li>
+            <span>Impar...........:&nbsp;&nbsp;&nbsp;{{ impar }}&nbsp;</span>
+            <span>Moldura......:&nbsp;&nbsp;&nbsp;{{ moldura }}&nbsp;</span>
+            <span>Multiplo......:&nbsp;&nbsp;&nbsp;{{ multiplo }}&nbsp;</span>
+        </li>
+        <li>
+            <span>Soma............:&nbsp;&nbsp;&nbsp;{{ soma }}&nbsp;</span>
+        </li>    
+    </ul>
+    <form action="descubra">
+        {% csrf_token %}
+        <table>
+            <tr>
+                {{ form.as_table }}
+            </tr>
+        </table>
+        <input type="submit" value="Validar">
+    </form>
+    <p> Acertou {{ cont }} Dezenas! </p>
+</div>
+{% endif %}
+{% endblock %}
