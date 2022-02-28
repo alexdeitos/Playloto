@@ -1,3 +1,4 @@
+from tkinter import CASCADE
 from django.db import models
 from datetime import date
 
@@ -23,7 +24,33 @@ class Sorteio(models.Model):
     B13 = models.SmallIntegerField()
     B14 = models.SmallIntegerField()
     B15 = models.SmallIntegerField()
-    qtd_ganhadores_15 = models.CharField(max_length=3)
+    qtd_ganhadores_15 = models.TextField(max_length=30)
+
+    class Meta:
+        get_latest_by = ('concurso')
+
+    def __str__(self):
+        return str(self.concurso)
+    
+class MeusJogos(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    concurso = models.BigIntegerField()
+    data_sorteio = models.DateField()
+    B1 = models.SmallIntegerField()
+    B2 = models.SmallIntegerField()
+    B3 = models.SmallIntegerField()
+    B4 = models.SmallIntegerField()
+    B5 = models.SmallIntegerField()
+    B6 = models.SmallIntegerField()
+    B7 = models.SmallIntegerField()
+    B8 = models.SmallIntegerField()
+    B9 = models.SmallIntegerField()
+    B10 = models.SmallIntegerField()
+    B11 = models.SmallIntegerField()
+    B12 = models.SmallIntegerField()
+    B13 = models.SmallIntegerField()
+    B14 = models.SmallIntegerField()
+    B15 = models.SmallIntegerField()
 
     class Meta:
         get_latest_by = ('concurso')

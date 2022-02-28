@@ -43,16 +43,7 @@
             <span>Soma............:&nbsp;&nbsp;&nbsp;{{ soma }}&nbsp;</span>
         </li>    
     </ul>
-    <form action="descubra">
-        {% csrf_token %}
-        <table>
-            <tr>
-                {{ form.as_table }}
-            </tr>
-        </table>
-        <input type="submit" value="Validar">
-    </form>
-    <p> Acertou {{ cont }} Dezenas! </p>
 </div>
+</ul>
 {% endif %}
 {% endblock %}

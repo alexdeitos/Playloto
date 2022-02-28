@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.template import Library;register = Library()
-from .models import Sorteio
+from .models import Sorteio, MeusJogos
 from django.core.paginator import Paginator
 from datetime import date, timedelta
 from random import randint
@@ -290,7 +290,7 @@ def descubra(request):
     ultimo_sorteio.append(last.B13)
     ultimo_sorteio.append(last.B14)
     ultimo_sorteio.append(last.B15)
-
+   
     #recieve form from html
     if request.method == 'POST':
         # Create a form instance and populate it with data from the request (binding):
@@ -303,14 +303,10 @@ def descubra(request):
             for f in jogo:
                 jogo.append(int(f))    
     
-    count = 0 
-    for n in ultimo_sorteio:
-        if n in jogo:
-            count += 1
+    
         
     context = {
         "last" : ultimo_sorteio,
-        "count" : count,
         "range":range(0,5),
         'form' : form,
     }
