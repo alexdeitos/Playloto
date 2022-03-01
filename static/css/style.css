@@ -4,9 +4,13 @@
     padding: 0;
 }
 ul.menu-index {
+    margin: 0 auto;
     background-color: #cecece;
     font-weight: bolder;
-    font-size: 20px;
+    font-size: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 8px;
 }
 ul.menu-index a{
     color: black;
@@ -15,11 +19,11 @@ ul.menu-index a{
 }
 
 .table th, td, tr, thead, tbody {
-    border: 2px solid black ;
+    border: 1px solid black ;
 }
 
 .table { 
-    margin: 0 auto;
+    
 }
 
 .table-last td,tr,thead, tbody {
@@ -114,14 +118,12 @@ div.mov ul li span {
 }
 
 div.mov{
-    margin-top: 10px;
     text-align: center;
-    margin: 0 auto;
+    margin-top: 20px;
+    margin-left: 15px;
 }
 
 div.mov1 {
-    position: relative;
-    margin-top: 10px;
     text-align: center;    
 }
 
@@ -131,7 +133,7 @@ div.mov1 table th {
 }
 div.mov h1{
     color: black;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
 div.last {

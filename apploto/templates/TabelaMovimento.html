@@ -3,307 +3,315 @@
 Tabela de Movimentação
 {% endblock %}
 {% block conteudo %}
-<div class="mov1">
-    <div class="container">
-        <p style="color: black;font-weight: bolder;border: 1px solid black;display: block;width: 250px; padding: 5px;text-align: center;">Ultimo concurso: {{ last_concurso }}</p>     
-        <table class="table-dark col-12">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">D1</th>
-                    <th scope="col">D2</th>
-                    <th scope="col">D3</th>
-                    <th scope="col">D4</th>
-                    <th scope="col">D5</th>
-                    <th scope="col">D6</th>
-                    <th scope="col">D7</th>
-                    <th scope="col">D8</th>
-                    <th scope="col">D9</th>
-                    <th scope="col">D10</th>
-                    <th scope="col">D11</th>
-                    <th scope="col">D12</th>
-                    <th scope="col">D13</th>
-                    <th scope="col">D14</th>
-                    <th scope="col">D15</th>
-                    <th scope="col">D16</th>
-                    <th scope="col">D17</th>
-                    <th scope="col">D18</th>
-                    <th scope="col">D19</th>
-                    <th scope="col">D20</th>
-                    <th scope="col">D21</th>
-                    <th scope="col">D22</th>
-                    <th scope="col">D23</th>
-                    <th scope="col">D24</th>
-                    <th scope="col">D25</th>
-                </tr>
-            </thead>
-            {% if vetJogos %}
-                {% for jogo in vetJogos %}
-                <tr>
-                    {% if jogo.0 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.0 }}</td>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8 mov1">
+            <div class="container-fluid">
+                <p style="color: black;font-weight: bolder;border: 1px solid black;display: block;width: 250px; padding: 5px;text-align: center;">Ultimo concurso: {{ last_concurso }}</p>     
+                <table class="table-dark col-12">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">D1</th>
+                            <th scope="col">D2</th>
+                            <th scope="col">D3</th>
+                            <th scope="col">D4</th>
+                            <th scope="col">D5</th>
+                            <th scope="col">D6</th>
+                            <th scope="col">D7</th>
+                            <th scope="col">D8</th>
+                            <th scope="col">D9</th>
+                            <th scope="col">D10</th>
+                            <th scope="col">D11</th>
+                            <th scope="col">D12</th>
+                            <th scope="col">D13</th>
+                            <th scope="col">D14</th>
+                            <th scope="col">D15</th>
+                            <th scope="col">D16</th>
+                            <th scope="col">D17</th>
+                            <th scope="col">D18</th>
+                            <th scope="col">D19</th>
+                            <th scope="col">D20</th>
+                            <th scope="col">D21</th>
+                            <th scope="col">D22</th>
+                            <th scope="col">D23</th>
+                            <th scope="col">D24</th>
+                            <th scope="col">D25</th>
+                        </tr>
+                    </thead>
+                    {% if vetJogos %}
+                        {% for jogo in vetJogos %}
+                        <tr>
+                            {% if jogo.0 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.0 }}</td>
+                            {% endif %}
+                            {% if jogo.1 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.1 }}</td>
+                            {% endif %}
+                            {% if jogo.2 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.2 }}</td>
+                            {% endif %}
+                            {% if jogo.3 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.3 }}</td>
+                            {% endif %}
+                            {% if jogo.4 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.4 }}</td>
+                            {% endif %}
+                            {% if jogo.5 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.5 }}</td>
+                            {% endif %}
+                            {% if jogo.6 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.6 }}</td>
+                            {% endif %}
+                            {% if jogo.7 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.7 }}</td>
+                            {% endif %}
+                            {% if jogo.8 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.8 }}</td>
+                            {% endif %}
+                            {% if jogo.9 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.9 }}</td>
+                            {% endif %}
+                            {% if jogo.10 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.10 }}</td>
+                            {% endif %}
+                            {% if jogo.11 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.11 }}</td>
+                            {% endif %}
+                            {% if jogo.12 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.12 }}</td>
+                            {% endif %}
+                            {% if jogo.13 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.13 }}</td>
+                            {% endif %}
+                            {% if jogo.14 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.14 }}</td>
+                            {% endif %}
+                            {% if jogo.15 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.15 }}</td>
+                            {% endif %}
+                            {% if jogo.16 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.16 }}</td>
+                            {% endif %}
+                            {% if jogo.17 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.17 }}</td>
+                            {% endif %}
+                            {% if jogo.18 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.18 }}</td>
+                            {% endif %}
+                            {% if jogo.19 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.19 }}</td>
+                            {% endif %}
+                            {% if jogo.20 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.20 }}</td>
+                            {% endif %}
+                            {% if jogo.21 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.21 }}</td>
+                            {% endif %}
+                            {% if jogo.22 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.22 }}</td>
+                            {% endif %}
+                            {% if jogo.23 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.23 }}</td>
+                            {% endif %}
+                            {% if jogo.24 == 'x' %}
+                            <td style="background-color:rgb(242, 243, 157);"></td>
+                            {% else %}
+                            <td style="background-color:808080">{{ jogo.24 }}</td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
                     {% endif %}
-                    {% if jogo.1 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.1 }}</td>
-                    {% endif %}
-                    {% if jogo.2 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.2 }}</td>
-                    {% endif %}
-                    {% if jogo.3 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.3 }}</td>
-                    {% endif %}
-                    {% if jogo.4 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.4 }}</td>
-                    {% endif %}
-                    {% if jogo.5 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.5 }}</td>
-                    {% endif %}
-                    {% if jogo.6 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.6 }}</td>
-                    {% endif %}
-                    {% if jogo.7 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.7 }}</td>
-                    {% endif %}
-                    {% if jogo.8 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.8 }}</td>
-                    {% endif %}
-                    {% if jogo.9 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.9 }}</td>
-                    {% endif %}
-                    {% if jogo.10 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.10 }}</td>
-                    {% endif %}
-                    {% if jogo.11 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.11 }}</td>
-                    {% endif %}
-                    {% if jogo.12 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.12 }}</td>
-                    {% endif %}
-                    {% if jogo.13 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.13 }}</td>
-                    {% endif %}
-                    {% if jogo.14 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.14 }}</td>
-                    {% endif %}
-                    {% if jogo.15 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.15 }}</td>
-                    {% endif %}
-                    {% if jogo.16 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.16 }}</td>
-                    {% endif %}
-                    {% if jogo.17 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.17 }}</td>
-                    {% endif %}
-                    {% if jogo.18 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.18 }}</td>
-                    {% endif %}
-                    {% if jogo.19 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.19 }}</td>
-                    {% endif %}
-                    {% if jogo.20 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.20 }}</td>
-                    {% endif %}
-                    {% if jogo.21 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.21 }}</td>
-                    {% endif %}
-                    {% if jogo.22 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.22 }}</td>
-                    {% endif %}
-                    {% if jogo.23 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.23 }}</td>
-                    {% endif %}
-                    {% if jogo.24 == 'x' %}
-                    <td style="background-color:rgb(242, 243, 157);"></td>
-                    {% else %}
-                    <td style="background-color:808080">{{ jogo.24 }}</td>
-                    {% endif %}
-                </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="container col-8 mov">
+            <h1>Tabelas dos últimos 10 sorteios</h1>
+            <ul>
+                {% for jogo in vetJogos1 %}
+                    <li class="row">
+                        {% if jogo.0 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.0}}</span>
+                        {% endif %}
+                        {% if jogo.1 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.1}}</span>
+                        {% endif %}
+                        {% if jogo.2 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.2}}</span>
+                        {% endif %}
+                        {% if jogo.3 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.3}}</span>
+                        {% endif %}
+                        {% if jogo.4 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.4}}</span>
+                        {% endif %}
+                        {% if jogo.5 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.5}}</span>
+                        {% endif %}
+                        {% if jogo.6 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.6}}</span>
+                        {% endif %}
+                        {% if jogo.7 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.7}}</span>
+                        {% endif %}
+                        {% if jogo.8 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.8}}</span>
+                        {% endif %}
+                        {% if jogo.9 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.9}}</span>
+                        {% endif %}
+                        {% if jogo.10 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.10}}</span>
+                        {% endif %}
+                        {% if jogo.11 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.11}}</span>
+                        {% endif %}
+                        {% if jogo.12 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.12}}</span>
+                        {% endif %}
+                        {% if jogo.13 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.13}}</span>
+                        {% endif %}
+                        {% if jogo.14 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.14}}</span>
+                        {% endif %}
+                        {% if jogo.15 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.15}}</span>
+                        {% endif %}
+                        {% if jogo.16 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.16}}</span>
+                        {% endif %}
+                        {% if jogo.17 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.17}}</span>
+                        {% endif %}
+                        {% if jogo.18 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.18}}</span>
+                        {% endif %}
+                        {% if jogo.19 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.19}}</span>
+                        {% endif %}
+                        {% if jogo.20 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.20}}</span>
+                        {% endif %}
+                        {% if jogo.21 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.21}}</span>
+                        {% endif %}
+                        {% if jogo.22 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.22}}</span>
+                        {% endif %}
+                        {% if jogo.23 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.23}}</span>
+                        {% endif %}
+                        {% if jogo.24 == 'x' %}
+                            <span style="background-color:rgb(242, 243, 157);" class="col-2">&nbsp;</span>
+                        {% else %}
+                            <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.24}}</span>
+                        {% endif %}
+                    </li>
+                    <br>
+                
                 {% endfor %}
-            {% endif %}
-        </table>
+            </ul>
+        </div>
+        <div class="col-2"></div>
     </div>
-    <div class="container mov">
-        <h1>Tabelas dos últimos 10 sorteios</h1>
-        <ul>
-            {% for jogo in vetJogos1 %}
-                <li class="row">
-                    {% if jogo.0 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.0}}</span>
-                    {% endif %}
-                    {% if jogo.1 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.1}}</span>
-                    {% endif %}
-                    {% if jogo.2 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.2}}</span>
-                    {% endif %}
-                    {% if jogo.3 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.3}}</span>
-                    {% endif %}
-                    {% if jogo.4 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.4}}</span>
-                    {% endif %}
-                    {% if jogo.5 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.5}}</span>
-                    {% endif %}
-                    {% if jogo.6 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.6}}</span>
-                    {% endif %}
-                    {% if jogo.7 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.7}}</span>
-                    {% endif %}
-                    {% if jogo.8 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.8}}</span>
-                    {% endif %}
-                    {% if jogo.9 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.9}}</span>
-                    {% endif %}
-                    {% if jogo.10 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.10}}</span>
-                    {% endif %}
-                    {% if jogo.11 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.11}}</span>
-                    {% endif %}
-                    {% if jogo.12 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.12}}</span>
-                    {% endif %}
-                    {% if jogo.13 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.13}}</span>
-                    {% endif %}
-                    {% if jogo.14 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.14}}</span>
-                    {% endif %}
-                    {% if jogo.15 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.15}}</span>
-                    {% endif %}
-                    {% if jogo.16 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.16}}</span>
-                    {% endif %}
-                    {% if jogo.17 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.17}}</span>
-                    {% endif %}
-                    {% if jogo.18 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.18}}</span>
-                    {% endif %}
-                    {% if jogo.19 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.19}}</span>
-                    {% endif %}
-                    {% if jogo.20 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.20}}</span>
-                    {% endif %}
-                    {% if jogo.21 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.21}}</span>
-                    {% endif %}
-                    {% if jogo.22 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.22}}</span>
-                    {% endif %}
-                    {% if jogo.23 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2"> </span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.23}}</span>
-                    {% endif %}
-                    {% if jogo.24 == 'x' %}
-                        <span style="background-color:rgb(242, 243, 157);" class="col-2">&nbsp;</span>
-                    {% else %}
-                        <span style="background-color:rgb(255, 255, 255);" class="col-2">{{jogo.24}}</span>
-                    {% endif %}
-                </li>
-                <br>
-            
-            {% endfor %}
-        </ul>
-    </div>
-</div>
 {% endblock %}

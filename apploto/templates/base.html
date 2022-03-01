@@ -10,7 +10,7 @@
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light row">
         <div class="container-fluid">
           <a class="navbar-brand" style="font-size:25px;font-weight:bolder;" href="{% url 'apploto:index' %}">AppLoto</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,32 +39,36 @@
     </header>
     <section class="corpo">
       {% if user.is_authenticated %}
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent1">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 menu-index">
-              <li class="nav-item">
-                <a href="{% url 'apploto:index' %}">Último Sorteio Realizado</a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'apploto:mov' %}">Tabela de Movimentação</a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'apploto:sorteia' %}">Gerar novo jogo</a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'apploto:descubra' %}">Descubra se Ganhou</a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'apploto:planilha' %}">Gerar Planilha de Movimentação</a>
-              </li>
-            </ul>
+      <div class="row">
+        <div class="col-1"></div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light col-10">
+          <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0 menu-index">
+                <li class="nav-item">
+                  <a href="{% url 'apploto:index' %}">Último Sorteio Realizado</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'apploto:mov' %}">Tabela de Movimentação</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'apploto:sorteia' %}">Gerar novo jogo</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'apploto:descubra' %}">Descubra se Ganhou</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'apploto:planilha' %}">Gerar Planilha de Movimentação</a>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
-     </nav>
+        </nav>
+        <div class="col-1"></div>
+      </div>  
       {% endif %}
       {% block conteudo %}
       {% endblock %}

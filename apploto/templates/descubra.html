@@ -2,7 +2,8 @@
 {% block title %}Boa Sorte!{% endblock %}
 {% block conteudo %}
 {% if last %}
-<div class="simulador_loterias">
+<div class="col-4"></div>
+<div class="simulador_loterias col-4 col-sm-12">
     <ul class="numeros">
         <li>
             <span>{{ last.0 }}</span>
@@ -27,23 +28,6 @@
         </li>
     </ul>
 </div>
-<div class="properties">
-    <ul>
-        <li>
-            <span>Repetidas...:&nbsp;&nbsp;&nbsp;{{ countRepetidas }}&nbsp;</span>
-            <span>Fibonacci....:&nbsp;&nbsp;&nbsp;{{ fibo }}&nbsp;</span>
-            <span>Primo...........:&nbsp;&nbsp;&nbsp;{{ primo }}&nbsp;</span>
-        </li>
-        <li>
-            <span>Impar...........:&nbsp;&nbsp;&nbsp;{{ impar }}&nbsp;</span>
-            <span>Moldura......:&nbsp;&nbsp;&nbsp;{{ moldura }}&nbsp;</span>
-            <span>Multiplo......:&nbsp;&nbsp;&nbsp;{{ multiplo }}&nbsp;</span>
-        </li>
-        <li>
-            <span>Soma............:&nbsp;&nbsp;&nbsp;{{ soma }}&nbsp;</span>
-        </li>    
-    </ul>
-</div>
-</ul>
+<div class="col-4"></div>
 {% endif %}
 {% endblock %}
