@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.views.generic import RedirectView
+
 
 app_name = "apploto"
 
@@ -9,5 +11,9 @@ urlpatterns = [
     path("sorteia", views.sorteia, name="sorteia"),
     path("planilha", views.planilha, name="planilha"),
     path("descubra", views.descubra, name="descubra"),
+]
+
+urlpatterns += [
+    path("", RedirectView.as_view(url='index', permanent=True)),
 ]
 

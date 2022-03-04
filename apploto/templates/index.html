@@ -3,8 +3,8 @@
 {% block conteudo %}
     {% if last %}
         <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8">
+            <div class="col-3"></div>
+            <div style="margin-top: 30px;" class="col-6">
                 <h2>Último Sorteio Realizado em:<br>&nbsp;&nbsp;&nbsp;&nbsp;{{last.data_sorteio}}</h2>
                 <table style="border: 1px solid white;" class="table table-last">
                     <thead class="thead-light">
@@ -107,7 +107,7 @@
                     </tfoot>
                 </table>
             </div>
-            <div class="col-2"></div>
+            <div class="col-3"></div>
         </div>
     {% endif %}
 {% endblock %}

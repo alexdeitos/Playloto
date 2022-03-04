@@ -23,6 +23,11 @@
                 <li>
                   <a href="" class="nav-link" id="usuario" style="font-weight: bolder ;text-transform: capitalize;">Olá, {{ user.get_username }}</a>
                 </li>
+                {% if user.is_staff %}
+                <li>
+                  <a href="{% url 'admin:index' %}" class="nav-link" id="usuario" style="font-weight: bolder ;text-transform: capitalize;">admin</a>
+                </li>
+                {% endif %}
                 <li>
                   <a class="nav-link active" href="{% url 'logout'%}?next={{request.path}}">Logout</a>
                 </li>

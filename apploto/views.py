@@ -24,7 +24,7 @@ def tabelaMovimento(request):
     last = Sorteio.objects.all().latest()
     last_concurso = last.concurso
     
-    query_set = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').filter(concurso__gte=(last_concurso-5)).order_by('concurso')
+    query_set = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').filter(concurso__gte=(last_concurso-9)).order_by('concurso')
     query_set1 = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').filter(data_sorteio__gte=data).order_by('-concurso')
     result = []
     result1 = []
@@ -258,8 +258,6 @@ def planilha(request):
             ws.cell(row=line + 1, column=i + 1).value = f'Ciclo: {contCiclo}'
             ws.cell(row=line + 1, column=i + 1).font = fonte1()
         
-            
-
     response = HttpResponse(content_type="application/ms-excel")
     response['Content-Disposition'] = 'attachment; filename=planilha.xls'
     wb.save(response) 
