@@ -257,6 +257,7 @@ def planilha(request):
                     ws.cell(row=line + 1, column=i).fill = red1()
             ws.cell(row=line + 1, column=i + 1).value = f'Ciclo: {contCiclo}'
             ws.cell(row=line + 1, column=i + 1).font = fonte1()
+            ciclo.clear()
         
     response = HttpResponse(content_type="application/ms-excel")
     response['Content-Disposition'] = 'attachment; filename=planilha.xls'
