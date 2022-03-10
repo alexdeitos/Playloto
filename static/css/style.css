@@ -136,3 +136,17 @@ div.last {
     margin: 0 auto;
     
 }
+
+ul#freq{
+    list-style: none ;
+    display: flex;
+    margin-left: 272px;
+    
+}
+ul#freq li{
+    border: 1px solid black;
+    margin: 0 auto; 
+    text-align: center;  
+    padding: 15px; 
+
+}
