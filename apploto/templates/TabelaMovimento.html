@@ -30,7 +30,9 @@
         let	count23 = 0 ;
         let	count24 = 0 ;
         let	count25 = 0 ;
-
+    
+        const lista = document.getElementById("table-dark");
+        
         dezena.forEach(element => {
             if (element.innerHTML === '1'){
                 count1 += 1
@@ -108,138 +110,27 @@
                 count25 += 1
             }
         })   
-        console.log("a dezena 1 veio; "+ count1 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 2 veio; "+ count2 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 3 veio; "+ count3 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 4 veio; "+ count4 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 5 veio; "+ count5 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 6 veio; "+ count6 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 7 veio; "+ count7 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 8 veio; "+ count8 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 9 veio; "+ count9 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 10 veio; "+ count10 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 11 veio; "+ count11 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 12 veio; "+ count12 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 13 veio; "+ count13 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 14 veio; "+ count14 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 15 veio; "+ count15 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 16 veio; "+ count16 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 17 veio; "+ count17 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 18 veio; "+ count18 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 19 veio; "+ count19 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 20 veio; "+ count20 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 21 veio; "+ count21 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 22 veio; "+ count22 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 23 veio; "+ count23 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 24 veio; "+ count24 + " vezes nos ultimos 20 jogos!"); 
-        console.log("a dezena 25 veio; "+ count25 + " vezes nos ultimos 20 jogos!"); 
+        const list = [count1, count2, count3, count4, count5, count6, count7, count8, count9, count10, count11, count12, count13, count14, count15, count16, count17, count18, count19, count20, count21, count22, count23, count24, count25];
 
-        const lista = document.getElementById("table-dark");
-        tbRow =  document.createElement("tr");
-        var d1 = document.createElement("td");
-        var d2 = document.createElement("td");
-        var d3 = document.createElement("td");
-        var d4 = document.createElement("td");
-        var d5 = document.createElement("td");
-        var d6 = document.createElement("td");
-        var d7 = document.createElement("td");
-        var d8 = document.createElement("td");
-        var d9 = document.createElement("td");
-        var d10 = document.createElement("td");
-        var d11 = document.createElement("td");
-        var d12 = document.createElement("td");
-        var d13 = document.createElement("td");
-        var d14 = document.createElement("td");
-        var d15 = document.createElement("td");
-        var d16 = document.createElement("td");
-        var d17 = document.createElement("td");
-        var d18 = document.createElement("td");
-        var d19 = document.createElement("td");
-        var d20 = document.createElement("td");
-        var d21 = document.createElement("td");
-        var d22 = document.createElement("td");
-        var d23 = document.createElement("td");
-        var d24 = document.createElement("td");
-        var d25 = document.createElement("td");
-
-        d1.textContent= count1;
-        d2.textContent= count2;
-        d3.textContent= count3;
-        d4.textContent= count4;
-        d5.textContent= count5;
-        d6.textContent= count6;
-        d7.textContent= count7;
-        d8.textContent= count8;
-        d9.textContent= count9;
-        d10.textContent= +count10;
-        d11.textContent= +count11;
-        d12.textContent= +count12;
-        d13.textContent= +count13;
-        d14.textContent= +count14;
-        d15.textContent= +count15;
-        d16.textContent= +count16;
-        d17.textContent= +count17;
-        d18.textContent= +count18;
-        d19.textContent= +count19;
-        d20.textContent= +count20;
-        d21.textContent= +count21;
-        d22.textContent= +count22;
-        d23.textContent= +count23;
-        d24.textContent= +count24;
-        d25.textContent= +count25;
-
-        d1.style.color = "black";
-        d2.style.color = "black";
-        d3.style.color = "black";
-        d4.style.color = "black";
-        d5.style.color = "black";
-        d6.style.color = "black";
-        d7.style.color = "black";
-        d8.style.color = "black";
-        d9.style.color = "black";
-        d10.style.color = "black";
-        d11.style.color = "black";
-        d12.style.color = "black";
-        d13.style.color = "black";
-        d14.style.color = "black";
-        d15.style.color = "black";
-        d16.style.color = "black";
-        d17.style.color = "black";
-        d18.style.color = "black";
-        d19.style.color = "black";
-        d20.style.color = "black";
-        d21.style.color = "black";
-        d22.style.color = "black";
-        d23.style.color = "black";
-        d24.style.color = "black";
-        d25.style.color = "black";
-
-        lista.appendChild(d1);
-        lista.appendChild(d2);
-        lista.appendChild(d3);
-        lista.appendChild(d4);
-        lista.appendChild(d5);
-        lista.appendChild(d6);
-        lista.appendChild(d7);
-        lista.appendChild(d8);
-        lista.appendChild(d9);
-        lista.appendChild(d10);
-        lista.appendChild(d11);
-        lista.appendChild(d12);
-        lista.appendChild(d13);
-        lista.appendChild(d14);
-        lista.appendChild(d15);
-        lista.appendChild(d16);
-        lista.appendChild(d17);
-        lista.appendChild(d18);
-        lista.appendChild(d19);
-        lista.appendChild(d20);
-        lista.appendChild(d21);
-        lista.appendChild(d22);
-        lista.appendChild(d23);
-        lista.appendChild(d24);
-        lista.appendChild(d25);
-
+        for (var i=0 ; i < 25; i++){
+            v = "d"+(i+1);
+            v = document.createElement('td');
+            v.textContent = list[i]
+            v.style.color = 'black';
+            v.style.fontWeight = "bolder";
+            if (list[i] > 13) {
+                v.style.backgroundColor = "yellow";
+            } 
+            if (list[i] < 10 ){
+                v.style.backgroundColor = "red";
+            }
+            if (list[i] <= 13 && list[i] >= 10) {
+                v.style.backgroundColor = "green";
+            }
+            console.log(list[i]);
+            lista.appendChild(v);
+        }
+    
     });
     
 </script>        
@@ -254,7 +145,13 @@ Tabela de Movimentação
         <div class="col-2"></div>
         <div class="col-8 mov1">
             <div class="container-fluid">
-                <p style="color: black;font-weight: bolder;border: 1px solid black;display: block;width: 250px; padding: 5px;text-align: center;">Ultimo concurso: {{ last_concurso }}</p>     
+                <p style="color: black;font-weight: bolder;border: 1px solid black;display: block;width: 250px; padding: 5px;text-align: center;">Ultimo concurso: {{ last_concurso }}</p> 
+                <div class="col-11"  style="text-align: center;">
+                    <h2>
+                        Últimos {{ qtd_jogos }} jogos:
+                    </h2>    
+                </div>
+                
                 <table id="table-dark" class="table-dark col-12">
                     <thead class="thead-light">
                         <tr>

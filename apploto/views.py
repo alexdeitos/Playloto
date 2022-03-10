@@ -1,4 +1,5 @@
 from itertools import count
+from operator import length_hint
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -24,8 +25,7 @@ def tabelaMovimento(request):
     data =  today_date - td
     last = Sorteio.objects.all().latest()
     last_concurso = last.concurso
-    
-    query_set = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').filter(concurso__gte=(last_concurso-9)).order_by('concurso')
+    query_set = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').filter(concurso__gte=(last_concurso-19)).order_by('concurso')
     query_set1 = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').filter(data_sorteio__gte=data).order_by('-concurso')
     result = []
     result1 = []
@@ -77,6 +77,7 @@ def tabelaMovimento(request):
                     context = {'countCiclo' : countCiclo, }
 
     context = {
+        'qtd_jogos' : len(vetJogos),
         'vetJogos': vetJogos,
         'vetJogos1' : vetJogos1,
         'last_concurso' : last_concurso, 
