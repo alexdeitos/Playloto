@@ -118,13 +118,13 @@
             v.textContent = list[i]
             v.style.color = 'black';
             v.style.fontWeight = "bolder";
-            if (list[i] > 13) {
-                v.style.backgroundColor = "yellow";
-            } 
-            if (list[i] < 10 ){
+            if (list[i] >= 5) {
                 v.style.backgroundColor = "red";
+            } 
+            if (list[i] <= 1 ){
+                v.style.backgroundColor = "yellow";
             }
-            if (list[i] <= 13 && list[i] >= 10) {
+            if(list[i] > 1 && list[i] < 5){
                 v.style.backgroundColor = "green";
             }
             console.log(list[i]);
