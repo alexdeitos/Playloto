@@ -72,6 +72,11 @@
                 <li class="nav-item">
                   <a href="{% url 'apploto:planilha' %}">Gerar Planilha de Movimentação</a>
                 </li>
+                {% if user.is_staff %}
+                <li class="nav-item">
+                  <a href="{% url 'apploto:scrapping' %}">Scraping Resultados</a>
+                </li>
+                {% endif %}
               </ul>
             </div>
           </div>

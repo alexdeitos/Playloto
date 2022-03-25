@@ -11,6 +11,8 @@ urlpatterns = [
     path("sorteia", views.sorteia, name="sorteia"),
     path("planilha", views.planilha, name="planilha"),
     path("descubra", views.descubra, name="descubra"),
+    path("scrapping", views.scrapping, name="scrapping"),
+
 ]
 
 urlpatterns += [

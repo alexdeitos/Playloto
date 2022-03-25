@@ -316,4 +316,6 @@ def descubra(request):
     }
     
     return render(request, 'descubra.html', context)
- 
+
+def scrapping(request):
+    return render(request, 'resultados.html', context={})
