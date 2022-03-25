@@ -4,7 +4,7 @@ from io import BytesIO
 from pandas import read_html
 
 
-URL = 'http://loterias.caixa.gov.br/wps/portal/loterias/landing/lotofacil/!ut/p/a1/04_Sj9CPykssy0xPLMnMz0vMAfGjzOLNDH0MPAzcDbz8vTxNDRy9_Y2NQ13CDA0sTIEKIoEKnN0dPUzMfQwMDEwsjAw8XZw8XMwtfQ0MPM2I02-AAzgaENIfrh-FqsQ9wBmoxN_FydLAGAgNTKEK8DkRrACPGwpyQyMMMj0VAcySpRM!/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_HGK818G0K85260Q5OIRSC42046/res/id=historicoHTML/c=cacheLevelPage/=/'
+URL = 'http://127.0.0.1:8000/scrapping'
 
 
 def html_resultados(url):
@@ -54,7 +54,7 @@ colunas = {'Bola1': 'B1', 'Bola2': 'B2', 'Bola3': 'B3', 'Bola4': 'B4', 'Bola5': 
 base.rename(columns=colunas, inplace=True)
 
 # Exporta os dados em arquivo CSV
-base.to_csv('./base/resultados.csv', sep=';', encoding='utf8', index=False)
+base.to_csv('resultados.csv', sep=';', encoding='utf8', index=False)
 
 if __name__ == '__main__':
 
@@ -65,4 +65,4 @@ if __name__ == '__main__':
 	print(f'\n\033[1;32mTODOS OS RESULTADOS DOS CONCURSOS DA LOTOFÁCIL FORAM BAIXADOS COM SUCESSO!\033[m')
 	print(f'\n\n\033[1;36mÚltimo sorteio:\033[m {data}\n\033[1;36mConcurso:\033[m {concurso}')
 
-	print(f'\n\n\033[1;35mArquivo salvo em:\033[m \033[1;33m../base/resultados.csv\033[m')
+	print(f'\n\n\033[1;35mArquivo salvo em:\033[m \033[1;33m..resultados.csv\033[m')
