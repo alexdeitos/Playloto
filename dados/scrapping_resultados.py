@@ -6,9 +6,20 @@ from pandas import read_html
 
 URL = 'http://127.0.0.1:8000/scrapping'
 
+html = get(URL).content
 
+dados = read_html(html)
+#print(type(dados))
+#print(dados[0])
+#pd = dados[0].iloc[:10,[*[i for i in range(17)],18]]
+pd = dados[0].iloc[:10,[*[i for i in range(17)],18]]
+pd.drop_duplicates('Concurso')
+print(pd.dtypes)
+#print(pd['Concurso'])
+#print(pd.columns)
+"""
 def html_resultados(url):
-	"""
+	""
 	Obtém os dados de todos os sorteios da lotofácil.
 	
 	:param url: Endereço para obter o arquivo ZIP
@@ -16,7 +27,7 @@ def html_resultados(url):
 	
 	:returns: Conteúdo HTML do arquivo ZIP
 
-	"""
+	""
 	resposta = get(url, stream = True)
 	verifica_zip = is_zipfile(BytesIO(resposta.content))
 
@@ -40,7 +51,7 @@ dados = read_html(html)
 # dados[0] -> <class 'pandas.core.frame.DataFrame'>
 # base     -> <class 'pandas.core.frame.DataFrame'>
 base = dados[0].iloc[:, [*[i for i in range(17)], 18]]
-
+print(base)
 
 # Remove dados duplicados
 base = base.drop_duplicates('Concurso')
@@ -65,4 +76,4 @@ if __name__ == '__main__':
 	print(f'\n\033[1;32mTODOS OS RESULTADOS DOS CONCURSOS DA LOTOFÁCIL FORAM BAIXADOS COM SUCESSO!\033[m')
 	print(f'\n\n\033[1;36mÚltimo sorteio:\033[m {data}\n\033[1;36mConcurso:\033[m {concurso}')
 
-	print(f'\n\n\033[1;35mArquivo salvo em:\033[m \033[1;33m..resultados.csv\033[m')
+	print(f'\n\n\033[1;35mArquivo salvo em:\033[m \033[1;33m..resultados.csv\033[m')"""
