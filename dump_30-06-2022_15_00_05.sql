@@ -3185,6 +3185,28 @@ COPY public.apploto_sorteio (concurso, data_sorteio, "B1", "B2", "B3", "B4", "B5
 2534	2022-05-30	7	8	10	11	12	14	15	16	17	18	20	21	22	23	25	5
 2535	2022-05-31	5	6	7	8	11	12	13	14	15	16	18	20	22	24	25	0
 2536	2022-06-01	1	2	4	6	9	12	13	15	16	17	18	19	21	23	25	4
+2537	2022-06-02	2	4	5	6	7	9	10	12	14	16	18	19	22	23	24	0
+2538	2022-06-03	1	2	4	5	6	8	9	13	14	16	17	21	22	24	25	0
+2539	2022-06-04	1	3	4	5	6	9	10	13	16	17	18	20	23	24	25	0
+2540	2022-06-06	1	3	5	6	7	8	11	12	14	18	20	21	22	23	24	0
+2541	2022-06-07	2	4	7	8	11	12	13	14	16	17	18	19	20	22	25	0
+2542	2022-06-08	3	5	8	10	12	13	15	16	18	19	20	21	22	24	25	0
+2543	2022-06-09	3	5	6	7	8	9	11	12	14	17	18	19	20	24	25	0
+2544	2022-06-10	3	5	6	7	8	10	11	12	13	15	18	20	21	23	24	0
+2545	2022-06-11	1	2	3	5	7	9	10	13	14	15	16	19	20	21	24	0
+2546	2022-06-13	2	4	5	7	8	9	10	11	14	17	20	21	22	24	25	0
+2547	2022-06-14	1	2	5	9	10	12	15	16	18	19	21	22	23	24	25	0
+2548	2022-06-15	1	2	3	4	5	8	9	11	13	15	16	18	19	23	25	0
+2549	2022-06-17	1	2	4	5	6	7	9	11	16	17	19	21	22	24	25	0
+2550	2022-06-18	1	2	6	7	9	10	12	13	17	18	20	21	23	24	25	0
+2551	2022-06-20	1	2	6	9	10	11	12	14	15	16	18	20	21	22	25	0
+2552	2022-06-21	1	3	4	5	9	10	12	13	14	15	17	18	21	24	25	0
+2553	2022-06-22	1	2	4	5	7	8	9	11	13	14	17	18	19	21	25	0
+2554	2022-06-23	2	3	4	8	10	11	13	15	16	17	18	19	20	22	24	0
+2555	2022-06-24	2	3	4	6	7	8	11	12	16	17	18	21	22	23	25	0
+2556	2022-06-25	1	2	5	10	11	12	15	17	18	20	21	22	23	24	25	0
+2557	2022-06-27	2	3	4	5	6	7	8	9	10	11	12	17	18	21	22	0
+2558	2022-06-28	3	4	5	6	10	12	14	15	16	17	20	21	22	24	25	0
 \.
 
 
@@ -3249,7 +3271,8 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 
 COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
-1	2022-06-02 21:36:38.64376+00	2536	2536	1	[{"added": {}}]	2	1
+2	2022-06-28 02:03:14.277025+00	2557	2557	1	[{"added": {}}]	2	1
+3	2022-06-29 17:19:25.531205+00	2558	2558	1	[{"added": {}}]	2	1
 \.
 
 
@@ -3274,30 +3297,30 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 --
 
 COPY public.django_migrations (id, app, name, applied) FROM stdin;
-1	contenttypes	0001_initial	2022-06-01 17:29:42.003858+00
-2	contenttypes	0002_remove_content_type_name	2022-06-01 17:29:42.012111+00
-3	auth	0001_initial	2022-06-01 17:29:42.065453+00
-4	auth	0002_alter_permission_name_max_length	2022-06-01 17:29:42.073432+00
-5	auth	0003_alter_user_email_max_length	2022-06-01 17:29:42.079281+00
-6	auth	0004_alter_user_username_opts	2022-06-01 17:29:42.087769+00
-7	auth	0005_alter_user_last_login_null	2022-06-01 17:29:42.093698+00
-8	auth	0006_require_contenttypes_0002	2022-06-01 17:29:42.096253+00
-9	auth	0007_alter_validators_add_error_messages	2022-06-01 17:29:42.104288+00
-10	auth	0008_alter_user_username_max_length	2022-06-01 17:29:42.109932+00
-11	auth	0009_alter_user_last_name_max_length	2022-06-01 17:29:42.11723+00
-12	auth	0010_alter_group_name_max_length	2022-06-01 17:29:42.124615+00
-13	auth	0011_update_proxy_permissions	2022-06-01 17:29:42.130413+00
-14	auth	0012_alter_user_first_name_max_length	2022-06-01 17:29:42.13913+00
-15	users	0001_initial	2022-06-01 17:29:42.195121+00
-16	admin	0001_initial	2022-06-01 17:29:42.220962+00
-17	admin	0002_logentry_remove_auto_add	2022-06-01 17:29:42.228909+00
-18	admin	0003_logentry_add_action_flag_choices	2022-06-01 17:29:42.23844+00
-19	apploto	0001_initial	2022-06-01 17:29:42.251001+00
-20	apploto	0002_alter_sorteio_qtd_ganhadores_15	2022-06-01 17:29:42.263106+00
-21	apploto	0003_alter_sorteio_qtd_ganhadores_15	2022-06-01 17:29:42.270923+00
-22	apploto	0004_alter_sorteio_qtd_ganhadores_15_meusjogos	2022-06-01 17:29:42.291217+00
-23	apploto	0005_alter_meusjogos_concurso	2022-06-01 17:29:42.306283+00
-24	sessions	0001_initial	2022-06-01 17:29:42.324882+00
+1	contenttypes	0001_initial	2022-06-08 00:50:47.77515+00
+2	contenttypes	0002_remove_content_type_name	2022-06-08 00:50:47.809276+00
+3	auth	0001_initial	2022-06-08 00:50:48.015679+00
+4	auth	0002_alter_permission_name_max_length	2022-06-08 00:50:48.037237+00
+5	auth	0003_alter_user_email_max_length	2022-06-08 00:50:48.066336+00
+6	auth	0004_alter_user_username_opts	2022-06-08 00:50:48.089351+00
+7	auth	0005_alter_user_last_login_null	2022-06-08 00:50:48.118643+00
+8	auth	0006_require_contenttypes_0002	2022-06-08 00:50:48.135298+00
+9	auth	0007_alter_validators_add_error_messages	2022-06-08 00:50:48.160576+00
+10	auth	0008_alter_user_username_max_length	2022-06-08 00:50:48.179178+00
+11	auth	0009_alter_user_last_name_max_length	2022-06-08 00:50:48.196112+00
+12	auth	0010_alter_group_name_max_length	2022-06-08 00:50:48.224036+00
+13	auth	0011_update_proxy_permissions	2022-06-08 00:50:48.248218+00
+14	auth	0012_alter_user_first_name_max_length	2022-06-08 00:50:48.27125+00
+15	users	0001_initial	2022-06-08 00:50:48.439037+00
+16	admin	0001_initial	2022-06-08 00:50:48.553195+00
+17	admin	0002_logentry_remove_auto_add	2022-06-08 00:50:48.577073+00
+18	admin	0003_logentry_add_action_flag_choices	2022-06-08 00:50:48.614183+00
+19	apploto	0001_initial	2022-06-08 00:50:48.654619+00
+20	apploto	0002_alter_sorteio_qtd_ganhadores_15	2022-06-08 00:50:48.681031+00
+21	apploto	0003_alter_sorteio_qtd_ganhadores_15	2022-06-08 00:50:48.70483+00
+22	apploto	0004_alter_sorteio_qtd_ganhadores_15_meusjogos	2022-06-08 00:50:48.753276+00
+23	apploto	0005_alter_meusjogos_concurso	2022-06-08 00:50:48.829072+00
+24	sessions	0001_initial	2022-06-08 00:50:48.889197+00
 \.
 
 
@@ -3306,6 +3329,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 --
 
 COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+5tocgex3rmk54uwjm6dthp8opf773bcz	.eJxVjEEOwiAQRe_C2hDotAO4dN8zkAEGqRqalHZlvLtt0oVu_3vvv4WnbS1-a7z4KYmr0OLyuwWKT64HSA-q91nGua7LFOShyJM2Oc6JX7fT_Tso1MpegwFHGtEqY4yO4ABVIOqt5oA5Jk0qD7aj3jEid9lpBTt0KVrAAVF8vrmJNsE:1o5ZYk:8MS9fJUpe2ZT6s6NTlHxY6Uq1kjhdTfGzRIjdTCCICs	2022-07-10 21:12:46.946852+00
 \.
 
 
@@ -3314,7 +3338,7 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 --
 
 COPY public.users_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$320000$WZrHWh1BCn9ATtIWFwNUl3$lT10xNZCvaFyb1sW07IM1gBh1xMkkzihQz02xBtUHE4=	2022-06-01 17:31:28.600179+00	t	admin			alexdeitos01@gmail.com	t	t	2022-06-01 17:31:23.236986+00
+1	pbkdf2_sha256$320000$WZrHWh1BCn9ATtIWFwNUl3$lT10xNZCvaFyb1sW07IM1gBh1xMkkzihQz02xBtUHE4=	2022-06-26 21:12:46.944165+00	t	admin			alexdeitos01@gmail.com	t	t	2022-06-01 17:31:23.236986+00
 \.
 
 
@@ -3359,7 +3383,7 @@ SELECT pg_catalog.setval('public.auth_permission_id_seq', 32, true);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 3, true);
 
 
 --

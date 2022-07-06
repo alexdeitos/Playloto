@@ -12,6 +12,8 @@ from openpyxl import Workbook
 from .cores_celulas import *
 from .forms import FixasForm, Valida
 from django.views.generic import ListView
+import csv
+
 
 # Create your views here.
 def index(request):
@@ -184,91 +186,74 @@ def sorteia(request):
 
 @login_required
 def planilha(request):
-    wb = Workbook()
-    ws = wb.active
+    
+    dezenas = [i for i in range(1, 26)] 
+    
+    query_set1 = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15')
+    result1 = []
+    
+    for d in query_set1:
+        result1.append(d)
 
-    query_set = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15')
-    result = []
-   
-   # lista_games agora é uma lista de jogos de 15 dezenas cada jogo
-   # contador = 0 
+    # csv file 
+    f = open('games.csv', 'w')
+    f = HttpResponse(
+        content_type='text/csv',
+        headers={'Content-Disposition': 'attachment; filename=games.csv'},
+    )
+    writer = csv.writer(f)
+    concurso = 1
+    count = 0 
+    header = ['Concurso', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6',
+        'D7', 'D8', 'D9', 'D10', 'D11', 'D12', 'D13', 'D14',
+        'D15', 'Faltam', 'Ciclo']
+    dezenas = [i for i in range(1, 26)]
+    text = ["sep=,"]
+    writer.writerow(text)
+    writer.writerow(header)
     
-    for c in query_set:
-        result.append(c)
+    dados = []
+    dadosFinais = []
+    for j in result1:
+        for n in j:
+            dados.append(n)
+        dadosFinais.append(dados[:])
+        dados.clear()
     
-    # contador += 1
-    # if contador == 11: 
-    # break
-    
-    #result.reverse()
-
-    #global i
-
-    letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-               'U', 'V', 'W','X','Y','Z', 'AA', 'AB', 'AC']
-    vetJogo = ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x',
-               'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x']
-    sep = [5, 10, 15, 20]
-    vetJogos = list()
-    vetJogosFinal = list()
-    ciclo = list()
-    contCiclo = 0
-    cont2 = 0
-    vetTemp = list()
-    
-    for vet in result:
-        for num in vet:
-            vetJogo[num-1] = num
-        vetJogos.append(vetJogo[:])
-        vetJogo.clear()
-        vetJogo = ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x',
-                   'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x']
-
-    for jogo in vetJogos:
-        for j in jogo:
-            if cont2 in sep:
-                vetTemp.append('||')
-            vetTemp.append(j)
-            cont2 += 1
-        cont2 = 0
-        vetJogosFinal.append(vetTemp[:])
-        vetTemp.clear()
-    
-    for line in range(0, len(vetJogosFinal)):  
-        cont1 = 0
-        for n in vetJogosFinal[line]:
-            cont1 += 1
-            celula = ws.cell(row=line+1, column=cont1)
-            if n == 'x':
-                celula.fill = black1()
-            elif n == '||':
-                celula.fill = black1()
-            else:
-                celula.fill = white()
-                if n not in ciclo:
-                    ciclo.append(n)
-            celula.value = n
-            celula.border = thin_border1()
-            celula.font = fonte1()
-            celula.alignment = alinhamento1()
-        for letra in letters:
-            ws.column_dimensions[str(letra)].width = 4
-        if len(ciclo) == 25:
-            contCiclo += 1
-            for i in range(1,30):
-                if ws.cell(row=line + 1, column=i).value == '||':
-                    ws.cell(row=line + 1, column=i).fill = black1()
-                else:
-                    ws.cell(row=line + 1, column=i).fill = red1()
-            ws.cell(row=line + 1, column=i + 1).value = f'Ciclo: {contCiclo}'
-            ws.cell(row=line + 1, column=i + 1).font = fonte1()
-            ciclo.clear()
+    for j in dadosFinais:
+        if len(dezenas) == 0:
+            dezenas = [i for i in range(1, 26)]
+        for i in j:
+            if i in dezenas:
+                dezenas.remove(i)
+                if len(dezenas) == 0:
+                    count+= 1
+        l1 = j[0]    
+        l2 = j[1]
+        l3 = j[2]
+        l4 = j[3]
+        l5 = j[4]
+        l6 = j[5]
+        l7 = j[6]
+        l8 = j[7]
+        l9 = j[8]
+        l10 = j[9]
+        l11 = j[10]
+        l12 = j[11]
+        l13 = j[12]
+        l14 = j[13]
+        l15 = j[14]
+        if len(dezenas)==0:
+            l = [concurso, l1, l2, l3, l4, l5, l6, l7, l8, l9,
+            l10, l11, l12, l13, l14, l15, 'Ciclo Encerrado', count]
+        else:
+            l = [concurso, l1, l2, l3, l4, l5, l6, l7, l8, l9,
+            l10, l11, l12, l13, l14, l15, dezenas]
+        concurso += 1
+        writer.writerow(l)
         
-    response = HttpResponse(content_type="application/ms-excel")
-    response['Content-Disposition'] = 'attachment; filename=planilha.xls'
-    wb.save(response) 
-
-    return response    
+    f.close()    
+    return f
     
 @login_required
 def descubra(request):
@@ -279,6 +264,8 @@ def descubra(request):
     last = Sorteio.objects.all().latest()
     
     #definiend last game
+    ultimo_sorteio.append(last.concurso)
+    ultimo_sorteio.append(last.data_sorteio)
     ultimo_sorteio.append(last.B1)
     ultimo_sorteio.append(last.B2)
     ultimo_sorteio.append(last.B3)
