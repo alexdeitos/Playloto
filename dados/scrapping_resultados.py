@@ -4,7 +4,8 @@ from io import BytesIO
 from pandas import read_html
 
 
-URL = 'http://127.0.0.1:8000/scrapping'
+#URL = 'http://127.0.0.1:8000/scrapping'
+URL = 'https://loterias.caixa.gov.br/Paginas/Download-Resultados.aspx'
 
 html = get(URL).content
 

@@ -5,49 +5,49 @@ Tabela de Movimentação
 {% block script %}
 {% endblock %}
 {% block conteudo %}
-    <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8 mov1">
-            <div class="container-fluid">
-              <p style="color: black;font-weight: bolder;border: 1px solid black;display: block;width: 250px; padding: 5px;text-align: center;">Ultimo concurso: {{ last_concurso }}<br> Realizado em: {{ data_sorteio }}</p> 
-                <div class="col-11"  style="text-align: center;">
-                    <h2>
-                      Últimos {{ qtd_jogos }} jogos:<br>
-                    </h2>    
-                </div>
-                
-                <table id="table-dark" class="table-dark col-12">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="col">D1</th>
-                            <th scope="col">D2</th>
-                            <th scope="col">D3</th>
-                            <th scope="col">D4</th>
-                            <th scope="col">D5</th>
-                            <th scope="col">D6</th>
-                            <th scope="col">D7</th>
-                            <th scope="col">D8</th>
-                            <th scope="col">D9</th>
-                            <th scope="col">D10</th>
-                            <th scope="col">D11</th>
-                            <th scope="col">D12</th>
-                            <th scope="col">D13</th>
-                            <th scope="col">D14</th>
-                            <th scope="col">D15</th>
-                            <th scope="col">D16</th>
-                            <th scope="col">D17</th>
-                            <th scope="col">D18</th>
-                            <th scope="col">D19</th>
-                            <th scope="col">D20</th>
-                            <th scope="col">D21</th>
-                            <th scope="col">D22</th>
-                            <th scope="col">D23</th>
-                            <th scope="col">D24</th>
-                            <th scope="col">D25</th>
-                        </tr>
-                    </thead>
-                    {% if vetJogos %}
-                        {% for jogo in vetJogos %}
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8 mov1">
+        <div class="container-fluid">
+            <p style="color: black;font-weight: bolder;border: 1px solid black;display: block;width: 250px; padding: 5px;text-align: center;">Ultimo concurso: {{ last_concurso }}<br> Realizado em: {{ data_sorteio }}</p>
+            <div class="col-11" style="text-align: center;">
+                <h2>
+                    Últimos {{ qtd_jogos }} jogos:<br>
+                </h2>
+            </div>
+
+            <table id="table-dark" class="table-dark col-12">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">D1</th>
+                        <th scope="col">D2</th>
+                        <th scope="col">D3</th>
+                        <th scope="col">D4</th>
+                        <th scope="col">D5</th>
+                        <th scope="col">D6</th>
+                        <th scope="col">D7</th>
+                        <th scope="col">D8</th>
+                        <th scope="col">D9</th>
+                        <th scope="col">D10</th>
+                        <th scope="col">D11</th>
+                        <th scope="col">D12</th>
+                        <th scope="col">D13</th>
+                        <th scope="col">D14</th>
+                        <th scope="col">D15</th>
+                        <th scope="col">D16</th>
+                        <th scope="col">D17</th>
+                        <th scope="col">D18</th>
+                        <th scope="col">D19</th>
+                        <th scope="col">D20</th>
+                        <th scope="col">D21</th>
+                        <th scope="col">D22</th>
+                        <th scope="col">D23</th>
+                        <th scope="col">D24</th>
+                        <th scope="col">D25</th>
+                    </tr>
+                </thead>
+                {% if vetJogos %}
+                    {% for jogo in vetJogos %}
                         <tr>
                             {% if jogo.0 == 'x' %}
                             <td style="background-color:rgb(242, 243, 157);"></td>
@@ -176,34 +176,27 @@ Tabela de Movimentação
                             {% endif %}
                         </tr>
                         {% endfor %}
-                    {% endif %}
-                </table>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+        <div class="row" style="text-align: center; margin: 0 auto;">
+            <div class="col-12">
+                <br>
+                <h3>Ocorrência de Fibonacci, Ímpares e Números Primos nos últimos {{ qtd_jogos }} concursos.</h3>
             </div>
         </div>
-        <div class="col-2"></div>
-    </div>
-    <div class="row" style="text-align: center; margin: 0 auto;">
-        <div class="col-12">
-            <br>
-            <h3>Ocorrencia de Fibonnaci, Impares e números Primos nos últimos {{ qtd_jogos }} concursos.</h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
-            <div class="container fluid">
-                <table id="ft">
-                  <!--
-                  <tr>
-                    <td>Números Fibonacci são esses:  1,&nbsp;2,&nbsp;3,&nbsp;5,&nbsp;8,&nbsp;13,&nbsp;21 </td>
-                  </tr>
-                  <tr> 
-                    <td>Números Primos são esses: &nbsp;2&nbsp;,3,&nbsp;5,&nbsp;7,&nbsp;11,&nbsp;13,&nbsp;17,&nbsp;19,&nbsp;23 
-                  </tr>
-                  -->
-                </table>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="container fluid">
+                    <table id="ft">
+                        <!-- ... (content of the table) ... -->
+                    </table>
+                </div>
             </div>
+            <div class="col-2"></div>
         </div>
-        <div class="col-2"></div>
-    </div>
-{% endblock %}
+        {% endblock %}

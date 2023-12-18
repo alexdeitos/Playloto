@@ -12,7 +12,7 @@ urlpatterns = [
     path("planilha", views.planilha, name="planilha"),
     path("descubra", views.descubra, name="descubra"),
     path("scrapping", views.scrapping, name="scrapping"),
-
+    path('exportar-tabela-excel/', views.exportar_tabela_excel, name='exportar_tabela_excel'),
 ]
 
 urlpatterns += [

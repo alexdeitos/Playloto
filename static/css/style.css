@@ -1,152 +1,23 @@
-*{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-ul.menu-index {
-    margin: 0 auto;
-    background-color: #cecece;
-    font-weight: bolder;
-    font-size: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 8px;
-}
-ul.menu-index a{
-    color: black;
-    margin: 10px;
+/* Add a class to the header for styling */
+.site-header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-}
+    z-index: 1;
+  }
+  
+  /* Adjust the margin of the body to account for the fixed header */
+  .corpo {
+    margin-top: 160px; /* Adjust this value based on your header's height */
+    display: block;
+    padding: 20px;
+    margin-left: 50px;
+  }
+  
 
-.table th, td, tr, thead, tbody {
-    border: 1px solid black ;
-}
-
-.table-last td,tr,thead, tbody {
-    border: none;
-}
-
-.table-last {
-    margin-top: 10px;
-}
-
-.table-last thead {
-    background-color: black;
-}
-
-.index {
-    margin-top: 30px;
-}
-
-.login {
-    margin: 0 auto;
-    margin-top: 10%;
-    background-color: #cecece;
-    padding: 10px;
-}
-
-div#navbarSupportedContent {
-    text-align: right;
-    padding-left: 70%;
-}
-
-div#navbarSupportedContent a#usuario{
-    color: black;
-    font-weight: bolder;
-}
-
-.tabela {
-    margin: 0 auto;
-    width: 400px;
-    height: 300px;
-    text-align: center;
-}
-
-div#button {
-    margin: 0 auto;
-    text-align: center;
-    padding: 10px;
-}
-
-div.simulador_loterias{
-    border: 2px solid black;
-    margin: 0 auto ;
-    width: 700px;
-    text-align: center;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-
-.simulador_loterias ul.numeros span {
-    color:black;
-    font-weight: 900;
-    font-size: 40px;
-    padding: 15px;
-}
-
-a.button,input.button { 
-    background-color: #cecece;
-    color: Black;
-    font-weight: 500;
-    font-size: 20px;
-    border-radius: 5px;
-    padding: 8px ;
-    margin-top: 15px;   
-}
-div.button{
-    text-align: center;
-    margin-top: 25px;
-}
-
-div.properties ul {
-    margin-left: 30%;
-    margin-top: 30px;
-    color: Black;
-    font-weight: 500;
-    font-size: 23px;
-}
-
-div.mov ul li span {
-    border : 1px solid black ;
-    padding: 5px;
-    text-align: center;
-    font-weight: bolder;
-}
-
-div.mov{
-    text-align: center;
-    margin-top: 20px;
-    margin-left: 15px;
-}
-
-div.mov1 {
-    text-align: center;    
-}
-
-div.mov1 table th {
-    border: 1px solid white;
-    padding: 5px;
-}
-div.mov h1{
-    color: black;
-    margin-bottom: 18px;
-}
-
-div.last {
-    margin: 0 auto;
-    
-}
-
-ul#freq{
-    list-style: none ;
-    display: flex;
-    margin-left: 272px;
-    
-}
-ul#freq li{
-    border: 1px solid black;
-    margin: 0 auto; 
-    text-align: center;  
-    padding: 15px; 
-
-}
+  /* Rest of your existing styles */
+  

@@ -1,62 +1,59 @@
 {% extends 'base.html' %}
+
 {% block title %}Boa Sorte!{% endblock %}
+
 {% block conteudo %}
-    {% if novo_sorteio %}
-        <div class="simulador_loterias">
-            <ul class="numeros">
-                <li>
-                    <span>{{ novo_sorteio.0 }}</span>
-                    <span>{{ novo_sorteio.1 }}</span>
-                    <span>{{ novo_sorteio.2 }}</span>
-                    <span>{{ novo_sorteio.3 }}</span>
-                    <span>{{ novo_sorteio.4 }}</span>
-                </li>
-                <li>
-                    <span>{{ novo_sorteio.5 }}</span>
-                    <span>{{ novo_sorteio.6 }}</span>
-                    <span>{{ novo_sorteio.7 }}</span>
-                    <span>{{ novo_sorteio.8 }}</span>
-                    <span>{{ novo_sorteio.9 }}</span>
-                </li>
-                <li>
-                    <span>{{ novo_sorteio.10 }}</span>
-                    <span>{{ novo_sorteio.11 }}</span>
-                    <span>{{ novo_sorteio.12 }}</span>
-                    <span>{{ novo_sorteio.13 }}</span>
-                    <span>{{ novo_sorteio.14 }}</span>
-                </li>
-            </ul>
-            <p>{{ novo_sorteio }}</p>
-        </div>
-        <div class="button">
-            <a class="button" href="{% url 'apploto:sorteia' %}">Sortear!</a>
-        </div>
-        <div class="properties">
-            <ul>
-                <li>
-                    <span>Repetidas...:&nbsp;&nbsp;&nbsp;{{ countRepetidas }}&nbsp;</span>
-                    <span>Fibonacci....:&nbsp;&nbsp;&nbsp;{{ fibo }}&nbsp;</span>
-                    <span>Primo...........:&nbsp;&nbsp;&nbsp;{{ primo }}&nbsp;</span>
-                </li>
-                <li>
-                    <span>Impar...........:&nbsp;&nbsp;&nbsp;{{ impar }}&nbsp;</span>
-                    <span>Moldura......:&nbsp;&nbsp;&nbsp;{{ moldura }}&nbsp;</span>
-                    <span>Multiplo......:&nbsp;&nbsp;&nbsp;{{ multiplo }}&nbsp;</span>
-                </li>
-                <li>
-                    <span>Soma............:&nbsp;&nbsp;&nbsp;{{ soma }}&nbsp;</span>
-                </li>
+{% if novo_sorteio %}
+<div class="container">
+    <div class="simulador_loterias text-center" style="background-color: #f8f9fa; padding: 20px; margin-top: 20px;">
+        <table class="table table-bordered">
+            <tr>
+                {% for num in novo_sorteio %}
+                <td style="font-weight: bold; color: black;">{{ num }}</td>
+                {% if forloop.counter|divisibleby:3 and not forloop.last %}
+            </tr>
+            <tr>
+                {% endif %}
+                {% endfor %}
+            </tr>
+        </table>
+        <p>{{ novo_sorteio }}</p>
+    </div>
+
+    <div class="button text-center">
+        <a class="btn btn-primary" href="{% url 'apploto:sorteia' %}">Sortear!</a>
+    </div>
+
+    <div class="properties text-center">
+        <ul class="list-unstyled">
+            <li>
+                <span>Fibonacci....:&nbsp;&nbsp;&nbsp;{{ fibo }}&nbsp;</span>
+                <span>Ímpar...........:&nbsp;&nbsp;&nbsp;{{ impar }}&nbsp;</span>
+                <span>Primo...........:&nbsp;&nbsp;&nbsp;{{ primo }}&nbsp;</span>
+            </li>
+            <li>
+                <span>Repetidas...:&nbsp;&nbsp;&nbsp;{{ countRepetidas }}&nbsp;</span>
+                <span>Moldura......:&nbsp;&nbsp;&nbsp;{{ moldura }}&nbsp;</span>
+                <span>Múltiplo......:&nbsp;&nbsp;&nbsp;{{ multiplo }}&nbsp;</span>
+            </li>
+            <li>
+                <span>Soma............:&nbsp;&nbsp;&nbsp;{{ soma }}&nbsp;</span>
+            </li>
+            <div class="fixas-form text-center" style="margin-top: 20px;">
                 <form action="sorteia" method="post">
                     {% csrf_token %}
-                    <table>
-                        Caso queira informe as dezenas fixas aqui <br>separadas por vírgula: {{ form.as_table }}
-                    </table>
-                    <input class="button" style="margin-top:10px;" type="submit" value="Gerar com Fixas">
+                    <div class="form-group">
+                        <label for="id_lista_fixas">Dezenas Fixas (separadas por vírgula):</label>
+                        {{ form.id_lista_fixas }}
+                    </div>
+                    <button class="btn btn-success" type="submit">Gerar com Fixas</button>
                 </form>
                 {% if lista_fixas %}
-                <li>Fixas : {{ lista_fixas }}</li>
+                    <p>Fixas: {{ lista_fixas }}</p>
                 {% endif %}
-            </ul>
-        </div>
-    {% endif %}
+            </div>
+        </ul>
+    </div>
+</div>
+{% endif %}
 {% endblock %}

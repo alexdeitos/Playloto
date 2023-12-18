@@ -9,11 +9,18 @@ from django.core.paginator import Paginator
 from datetime import date, timedelta
 from random import randint
 from openpyxl import Workbook
+from openpyxl.styles import PatternFill, Font
+from openpyxl.utils import get_column_letter
 from .cores_celulas import *
 from .forms import FixasForm, Valida
 from django.views.generic import ListView
+from .forms import Valida
 import csv
-
+import io
+from django.http import FileResponse
+from django.template import Context
+from django.template.loader import get_template
+#from xhtml2pdf import pisa
 
 # Create your views here.
 def index(request):
@@ -28,7 +35,7 @@ def tabelaMovimento(request):
     last = Sorteio.objects.all().latest()
     last_concurso = last.concurso
     last_data = last.data_sorteio
-    query_set = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').filter(concurso__gte=(last_concurso-9)).order_by('concurso')
+    query_set = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').filter(concurso__gte=(last_concurso-7)).order_by('concurso')
     #query_set = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').order_by('concurso')
     query_set1 = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').filter(data_sorteio__gte=data).order_by('-concurso')
     result = []
@@ -40,16 +47,6 @@ def tabelaMovimento(request):
         result.append(c)
     for c in query_set1:
         result1.append(c)
-    #        contador += 1
-    #        if contador == 11: 
-    #            break
-    
-    #result.reverse()
-
-    #global i
-
-    #letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-    #           'U', 'V', 'W','X','Y','Z', 'AA', 'AB', 'AC']
     vetJogo = ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x',
                'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x']
 
@@ -191,7 +188,7 @@ def planilha(request):
     
     query_set1 = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15')
     result1 = []
-    
+        
     for d in query_set1:
         result1.append(d)
 
@@ -254,54 +251,72 @@ def planilha(request):
         
     f.close()    
     return f
-    
+
+@login_required
+# Defina a função para obter os dados da tabela
+def get_dados_tabela():
+    # Substitua esta lógica de exemplo pela lógica real para obter seus dados
+    # Por exemplo, você pode consultar o modelo Sorteio para obter os dados
+    dados = Sorteio.objects.all()  # Consulta para obter todos os objetos Sorteio
+    return dados
+
+@login_required
+def exportar_tabela_excel(request):
+    # Recupere todos os jogos do banco de dados
+    jogos = Sorteio.objects.all().order_by('-concurso')
+
+    # Crie um contexto para passar os jogos para o template do Excel
+    context = {
+        'dados': jogos,
+    }
+
+    # Renderize o template HTML que contém a tabela em Excel
+    template = get_template('tabela_excel.html')
+    html = template.render(context)
+
+    # Crie um arquivo temporário para armazenar o PDF
+    result = HttpResponse(content_type='application/vnd.ms-excel')
+    result['Content-Disposition'] = 'attachment; filename="tabela_excel.xls"'
+
+    # Converta o HTML para PDF usando a biblioteca xhtml2pdf
+    #pdf = pisa.pisaDocument(html, result)
+
+    # Verifique se a conversão para PDF foi bem-sucedida
+    #if not pdf.err:
+    #    return result
+
+    return HttpResponse('Erro ao gerar o arquivo Excel.', content_type='text/plain')
+
 @login_required
 def descubra(request):
-    # variables
-    form = Valida()
-    jogo = list()
-    ultimo_sorteio = list()
+    # Recuperar o último sorteio
     last = Sorteio.objects.all().latest()
-    
-    #definiend last game
-    ultimo_sorteio.append(last.concurso)
-    ultimo_sorteio.append(last.data_sorteio)
-    ultimo_sorteio.append(last.B1)
-    ultimo_sorteio.append(last.B2)
-    ultimo_sorteio.append(last.B3)
-    ultimo_sorteio.append(last.B4)
-    ultimo_sorteio.append(last.B5)
-    ultimo_sorteio.append(last.B6)
-    ultimo_sorteio.append(last.B7)
-    ultimo_sorteio.append(last.B8)
-    ultimo_sorteio.append(last.B9)
-    ultimo_sorteio.append(last.B10)
-    ultimo_sorteio.append(last.B11)
-    ultimo_sorteio.append(last.B12)
-    ultimo_sorteio.append(last.B13)
-    ultimo_sorteio.append(last.B14)
-    ultimo_sorteio.append(last.B15)
-   
-    #recieve form from html
+
+    # Inicializar variáveis
+    form = Valida()
+    ultimo_sorteio = [
+        last.B1, last.B2, last.B3, last.B4, last.B5,
+        last.B6, last.B7, last.B8, last.B9, last.B10,
+        last.B11, last.B12, last.B13, last.B14, last.B15
+    ]
+    acertos = 0
+
+    # Processar o formulário se for um POST
     if request.method == 'POST':
-        # Create a form instance and populate it with data from the request (binding):
         form = Valida(request.POST)
-        # Check if the form is valid:
         if form.is_valid():
-        # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
-            jogo = form.cleaned_data['jogo']
-            jogo = jogo.split(',')
-            for f in jogo:
-                jogo.append(int(f))    
-    
-    
-        
+            jogo_digitado = form.cleaned_data['jogo']
+            jogo_digitado = [int(numero) for numero in jogo_digitado.split(',')]
+
+            # Comparar os números do jogo digitado com o último sorteio
+            acertos = sum(1 for numero in jogo_digitado if numero in ultimo_sorteio)
+
     context = {
-        "last" : ultimo_sorteio,
-        "range":range(0,5),
-        'form' : form,
+        "last": last,
+        "acertos": acertos,
+        "form": form,
     }
-    
+
     return render(request, 'descubra.html', context)
 
 def scrapping(request):

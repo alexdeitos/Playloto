@@ -1,33 +1,127 @@
 {% extends 'base.html' %}
+
 {% block title %}Boa Sorte!{% endblock %}
+
 {% block conteudo %}
 {% if last %}
-<div class="col-4"></div>
-<div class="simulador_loterias col-4 col-sm-12">
-    <ul class="numeros">
-        <li>
-            <span>{{ last.0 }}</span>
-            <span>{{ last.1 }}</span>
-            <span>{{ last.2 }}</span>
-            <span>{{ last.3 }}</span>
-            <span>{{ last.4 }}</span>
-        </li>
-        <li>
-            <span>{{ last.5 }}</span>
-            <span>{{ last.6 }}</span>
-            <span>{{ last.7 }}</span>
-            <span>{{ last.8 }}</span>
-            <span>{{ last.9 }}</span>
-        </li>
-        <li>
-            <span>{{ last.10 }}</span>
-            <span>{{ last.11 }}</span>
-            <span>{{ last.12 }}</span>
-            <span>{{ last.13 }}</span>
-            <span>{{ last.14 }}</span>
-        </li>
-    </ul>
+<div class="row">
+    <div class="col-3"></div>
+    <div style="margin-top: 30px;" class="col-6">
+        <h2>Último Sorteio Realizado em:<br>&nbsp;&nbsp;&nbsp;&nbsp;{{last.data_sorteio}}</h2>
+        <table style="border: 1px solid white;" class="table table-last">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Concurso</th>
+                    <th scope="col">Data Sorteio</th>
+                    <th scope="col" colspan="5">Dezenas</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <td style="background-color:808080">{{  last.concurso }}</td>
+                <td style="background-color:808080">{{  last.data_sorteio }}</td>
+                {% if  last.B1 == 'x' %}
+                <td style="background-color:black;"></td>
+                {% else %}
+                <td style="background-color:808080">{{  last.B1 }}</td>
+                {% endif %} 
+                {% if  last.B2 == 'x' %}
+                <td style="background-color:black;"></td>
+                {% else %}
+                <td style="background-color:808080">{{  last.B2 }}</td>
+                {% endif %} 
+                {% if  last.B3 == 'x' %}
+                <td style="background-color:black;"></td>
+                {% else %}
+                <td style="background-color:808080">{{  last.B3 }}</td>
+                {% endif %} 
+                {% if  last.B4 == 'x' %}
+                <td style="background-color:black;"></td>
+                {% else %}
+                <td style="background-color:808080">{{  last.B4 }}</td>
+                {% endif %} 
+                {% if  last.B5 == 'x' %}
+                <td style="background-color:black;"></td>
+                {% else %}
+                <td style="background-color:808080">{{  last.B5 }}</td>
+                {% endif %} 
+                <tr>
+                    <td></td>
+                    <td></td>
+                {% if  last.B6 == 'x' %}
+                <td style="background-color:black;"></td>
+                {% else %}
+                <td style="background-color:808080">{{  last.B6 }}</td>
+                {% endif %} 
+                {% if  last.B7 == 'x' %}
+                <td style="background-color:black;"></td>
+                {% else %}
+                <td style="background-color:808080">{{  last.B7 }}</td>
+                {% endif %} 
+                {% if  last.B8 == 'x' %}
+                <td style="background-color:black;"></td>
+                {% else %}
+                <td style="background-color:808080">{{  last.B8 }}</td>
+                {% endif %} 
+                {% if  last.B9 == 'x' %}
+                <td style="background-color:black;"></td>
+                {% else %}
+                <td style="background-color:808080">{{  last.B9 }}</td>
+                {% endif %} 
+                {% if  last.B10 == 'x' %}
+                <td style="background-color:black;"></td>
+                {% else %}
+                <td style="background-color:808080">{{  last.B10 }}</td>
+                {% endif %} 
+                </tr>
+                <td></td>
+                <td></td>
+                {% if  last.B11 == 'x' %}
+                <td style="background-color:black;"></td>
+                {% else %}
+                <td style="background-color:808080">{{  last.B11 }}</td>
+                {% endif %} 
+                {% if  last.B12 == 'x' %}
+                <td style="background-color:black;"></td>
+                {% else %}
+                <td style="background-color:808080">{{  last.B12 }}</td>
+                {% endif %} 
+                {% if  last.B13 == 'x' %}
+                <td style="background-color:black;"></td>
+                {% else %}
+                <td style="background-color:808080">{{  last.B13 }}</td>
+                {% endif %} 
+                {% if  last.B14 == 'x' %}
+                <td style="background-color:black;"></td>
+                {% else %}
+                <td style="background-color:808080">{{  last.B14 }}</td>
+                {% endif %} 
+                {% if  last.B15 == 'x' %}
+                <td style="background-color:black;"></td>
+                {% else %}
+                <td style="background-color:808080">{{  last.B15 }}</td>
+                {% endif %}             
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td style="text-align: center;" colspan="7">Nr. de Ganhadores: {{ last.qtd_ganhadores_15 }}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="col-3"></div>
 </div>
-<div class="col-4"></div>
 {% endif %}
+
+    <div class="container mt-4">
+        <h2>Descubra seus Acertos</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Verificar Acertos</button>
+        </form>
+        {% if acertos > 0 %}
+            <p class="mt-3">Você acertou {{ acertos }} número(s) no último sorteio!</p>
+        {% endif %}
+    </div>
 {% endblock %}
