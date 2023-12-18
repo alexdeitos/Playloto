@@ -17,6 +17,19 @@
       margin: auto 0;
       font-weight: bold;
     }
+    .simulador_loterias {
+      margin-top: 10px;
+   }
+
+   .button,
+   .properties {
+      margin-top: 10px;
+   }
+  
+   .navbar {
+      width: 100%; /* Ajuste a largura conforme necessário */
+   }
+
   </style>
 
   {% block script %}
@@ -26,7 +39,7 @@
 
 <body>
   <header class="site-header">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mx-auto d-flex align-items-center">
       <div class="container-fluid">
         <a class="navbar-brand" style="font-size:25px;font-weight:bolder;" href="{% url 'apploto:index' %}">AppLoto</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -61,9 +74,8 @@
       </div>
     </nav>
     {% if user.is_authenticated %}
-    <div class="row">
-      <div class="col-1"></div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light col-10">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light mx-auto d-flex align-items-center">
         <div class="container-fluid">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -82,7 +94,7 @@
                 <a href="{% url 'apploto:sorteia' %}" class="nav-link">Gerar novo jogo</a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'apploto:descubra' %}" class="nav-link">Descubra se Ganhou</a>
+                <a href="{% url 'apploto:descubra' %}" class="nav-link">Validar Acerto Sorteios</a>
               </li>
               <li class="nav-item">
                 <a href="{% url 'apploto:planilha' %}" class="nav-link">Gerar Planilha de Movimentação</a>

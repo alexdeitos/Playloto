@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
 {% block conteudo %}
-<div class="text-center col-6 login">
-    <form  class="form-signin text-center" action="{% url 'login'  %}" method="post">
-        {% csrf_token %}
+<div class="container d-flex align-items-center">
+    <div class="row text-center my-5 mx-auto">
+        <form class="form-signin" action="{% url 'login' %}" method="post">
+            {% csrf_token %}
             <h1 class="h3 mb-3 font-weight-normal">Acessar a sua conta</h1>
             <label for="form.id_username" class="sr-only">Usuário</label>
             <input type="text" id="form.id_username" class="form-control" name="{{ form.username.html_name}}" placeholder="Email address" required autofocus>
             <label for="form.id_password" class="sr-only">Senha</label>
             <input type="password" id="form.id_password" class="form-control" placeholder="Password" required name="{{ form.password.html_name}}">
             <br>
-            <button class="btn btn-lg btn-success " type="submit">Acessar</button>
+            <button class="btn btn-lg btn-success" type="submit">Acessar</button>
             <br><br><br>
             <p><a href="{% url 'password_reset' %}">Esqueceu sua senha?</a></p>
-    </form>
+        </form>
+    </div>
 </div>
 {% endblock %}

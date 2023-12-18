@@ -3,57 +3,72 @@
 {% block title %}Boa Sorte!{% endblock %}
 
 {% block conteudo %}
-{% if novo_sorteio %}
-<div class="container">
-    <div class="simulador_loterias text-center" style="background-color: #f8f9fa; padding: 20px; margin-top: 20px;">
-        <table class="table table-bordered">
-            <tr>
-                {% for num in novo_sorteio %}
-                <td style="font-weight: bold; color: black;">{{ num }}</td>
-                {% if forloop.counter|divisibleby:3 and not forloop.last %}
-            </tr>
-            <tr>
-                {% endif %}
-                {% endfor %}
-            </tr>
+  {% if novo_sorteio %}
+    <div class="container">
+      <div class="simulador_loterias text-center" style="background-color: #f8f9fa; padding: 20px; margin-top: 20px;">
+        <table class="table table-bordered table-sm">
+          <tr>
+            {% for num in novo_sorteio %}
+              <td style="font-weight: bold; color: black;">{{ num }}</td>
+              {% if forloop.counter|divisibleby:3 and not forloop.last %}
+          </tr>
+          <tr>
+              {% endif %}
+            {% endfor %}
+          </tr>
         </table>
         <p>{{ novo_sorteio }}</p>
-    </div>
+      </div>
 
-    <div class="button text-center">
+      <div class="button text-center">
         <a class="btn btn-primary" href="{% url 'apploto:sorteia' %}">Sortear!</a>
-    </div>
+      </div>
 
-    <div class="properties text-center">
-        <ul class="list-unstyled">
-            <li>
-                <span>Fibonacci....:&nbsp;&nbsp;&nbsp;{{ fibo }}&nbsp;</span>
-                <span>Ímpar...........:&nbsp;&nbsp;&nbsp;{{ impar }}&nbsp;</span>
-                <span>Primo...........:&nbsp;&nbsp;&nbsp;{{ primo }}&nbsp;</span>
-            </li>
-            <li>
-                <span>Repetidas...:&nbsp;&nbsp;&nbsp;{{ countRepetidas }}&nbsp;</span>
-                <span>Moldura......:&nbsp;&nbsp;&nbsp;{{ moldura }}&nbsp;</span>
-                <span>Múltiplo......:&nbsp;&nbsp;&nbsp;{{ multiplo }}&nbsp;</span>
-            </li>
-            <li>
-                <span>Soma............:&nbsp;&nbsp;&nbsp;{{ soma }}&nbsp;</span>
-            </li>
-            <div class="fixas-form text-center" style="margin-top: 20px;">
-                <form action="sorteia" method="post">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="id_lista_fixas">Dezenas Fixas (separadas por vírgula):</label>
-                        {{ form.id_lista_fixas }}
-                    </div>
-                    <button class="btn btn-success" type="submit">Gerar com Fixas</button>
-                </form>
-                {% if lista_fixas %}
-                    <p>Fixas: {{ lista_fixas }}</p>
-                {% endif %}
+      <div class="properties text-center">
+        <table class="table table-bordered table-sm">
+          <tr>
+            <td>Fibonacci</td>
+            <td>{{ fibo }}</td>
+          </tr>
+          <tr>
+            <td>Ímpar</td>
+            <td>{{ impar }}</td>
+          </tr>
+          <tr>
+            <td>Primo</td>
+            <td>{{ primo }}</td>
+          </tr>
+          <tr>
+            <td>Repetidas</td>
+            <td>{{ countRepetidas }}</td>
+          </tr>
+          <tr>
+            <td>Moldura</td>
+            <td>{{ moldura }}</td>
+          </tr>
+          <tr>
+            <td>Múltiplo</td>
+            <td>{{ multiplo }}</td>
+          </tr>
+          <tr>
+            <td colspan="3">Soma: {{ soma }}</td>
+          </tr>
+        </table>
+
+        <div class="fixas-form text-center" style="margin-top: 20px;">
+          <form action="sorteia" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="id_fixas">Dezenas Fixas (separadas por vírgula):</label>
+              {{ form.fixas }}
             </div>
-        </ul>
+            <button class="btn btn-success" type="submit">Gerar com Fixas</button>
+          </form>
+          {% if lista_fixas %}
+            <p>Fixas: {{ lista_fixas }}</p>
+          {% endif %}
+        </div>
+      </div>
     </div>
-</div>
-{% endif %}
+  {% endif %}
 {% endblock %}
