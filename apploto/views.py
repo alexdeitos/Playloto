@@ -1,29 +1,37 @@
-from itertools import count
+#from itertools import count
 from operator import length_hint
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.template import Library;register = Library()
-from .models import Sorteio, MeusJogos
-from django.core.paginator import Paginator
+#from .models import Sorteio, MeusJogos
+#from django.core.paginator import Paginator
 from datetime import date, timedelta
 from random import randint
-from openpyxl import Workbook
-from openpyxl.styles import PatternFill, Font
+#from openpyxl import Workbook
+#from openpyxl.styles import PatternFill, Font
 from openpyxl.utils import get_column_letter
 from .cores_celulas import *
 from .forms import FixasForm, Valida
-from django.views.generic import ListView
+#from django.views.generic import ListView
 from .forms import Valida
 import csv
-import io
-from django.http import FileResponse
-from django.template import Context
+#import io
+#from django.http import FileResponse
+#from django.template import Context
 from django.template.loader import get_template
-#from xhtml2pdf import pisa
+import openpyxl
+from datetime import datetime
+from .models import Sorteio
 
 # Create your views here.
 def index(request):
+    last = Sorteio.objects.last()  # Obtém o último sorteio do banco de dados
+
+    # Se não houver sorteios, redirecione para a página de importação
+    if not last:
+        return redirect('apploto:importar_sorteios')
+
     last = Sorteio.objects.all().latest()
     return render(request, 'index.html', {'last' : last})
 
@@ -321,3 +329,30 @@ def descubra(request):
 
 def scrapping(request):
     return render(request, 'resultados.html', context={})
+
+
+def importar_sorteios(request):
+    if request.method == 'POST' and request.FILES['file']:
+        file = request.FILES['file']
+        if file.name.endswith('.xlsx'):
+            workbook = openpyxl.load_workbook(file)
+            worksheet = workbook.active
+
+            for row in worksheet.iter_rows(values_only=True):
+                sorteio_id = row[0]
+                data_sorteio = datetime.strptime(row[1], '%d/%m/%Y').date()
+                numeros = row[2:]
+
+                # Passando todos os campos como argumentos de palavra-chave
+                sorteio = Sorteio(concurso=sorteio_id, data_sorteio=data_sorteio, B1=numeros[0], B2=numeros[1],
+                                  B3=numeros[2], B4=numeros[3], B5=numeros[4], B6=numeros[5], B7=numeros[6],
+                                  B8=numeros[7], B9=numeros[8], B10=numeros[9], B11=numeros[10], B12=numeros[11],
+                                  B13=numeros[12], B14=numeros[13], B15=numeros[14], qtd_ganhadores_15=row[16])
+                sorteio.save()
+
+            last = Sorteio.objects.all().latest()
+            return render(request, 'index.html', {'last' : last})
+        else:
+            return HttpResponse("Por favor, selecione um arquivo .xlsx.")
+    return render(request, 'importar_sorteios.html')
+
