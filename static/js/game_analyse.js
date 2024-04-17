@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var yellow = 3;
     var green = 6;
     var minimo = 3;
-    var divisor = 10;
+    var divisor = 8;
     for (var i=0 ; i < 25; i++){
         v = "d"+(i+1);
         v = document.createElement('td');
