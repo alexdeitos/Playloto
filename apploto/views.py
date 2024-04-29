@@ -24,6 +24,7 @@ import openpyxl
 from datetime import datetime
 from .models import Sorteio
 
+
 # Create your views here.
 def index(request):
     last = Sorteio.objects.last()  # Obtém o último sorteio do banco de dados
@@ -169,23 +170,22 @@ def sorteia(request):
             if n in lista_fixas:
                 countfixas += 1
         '''soma > 190 and soma < 200 and'''       
-        if  soma > 190 and soma < 200 and countfixas == len(lista_fixas) and impar < 9 and impar >= 7:
-            break
-        # adiciona o resultados das variáveis a uma variável que será enviada ao cliente
-        
-    context = {
-        "novo_sorteio" : sorted(novo_sorteio),
-        'impar': impar,
-        'fibo': fibo,
-        'primo': primo,
-        'moldura': moldura,
-        'multiplo': multiplo,
-        'countRepetidas': countRepetidas,
-        'soma' : soma,
-        'form' : form,
-        'fixas': fixas,
-        'lista_fixas' : lista_fixas,
-    }
+        if  impar == 8 and fibo == 4 and primo == 5:
+            #    break
+            # adiciona o resultados das variáveis a uma variável que será enviada ao cliente  
+            context = {
+                "novo_sorteio" : sorted(novo_sorteio),
+                'impar': impar,
+                'fibo': fibo,
+                'primo': primo,
+                'moldura': moldura,
+                'multiplo': multiplo,
+                'countrepetidas': countRepetidas,
+                'soma' : soma,
+                'form' : form,
+                'fixas': fixas,
+                'lista_fixas' : lista_fixas,
+            }
     
     return render(request, 'sorteia.html', context)
 
@@ -204,28 +204,28 @@ def planilha(request):
     f = open('games.csv', 'w')
     f = HttpResponse(
         content_type='text/csv',
-        headers={'Content-Disposition': 'attachment; filename=games.csv'},
+        headers={'content-disposition': 'attachment; filename=games.csv'},
     )
     writer = csv.writer(f)
     concurso = 1
     count = 0 
-    header = ['Concurso', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6',
-        'D7', 'D8', 'D9', 'D10', 'D11', 'D12', 'D13', 'D14',
-        'D15', 'Faltam', 'Ciclo']
+    header = ['concurso', 'd1', 'd2', 'd3', 'd4', 'd5', 'd6',
+        'd7', 'd8', 'd9', 'd10', 'd11', 'd12', 'd13', 'd14',
+        'd15', 'faltam', 'ciclo']
     dezenas = [i for i in range(1, 26)]
     text = ["sep=,"]
     writer.writerow(text)
     writer.writerow(header)
     
     dados = []
-    dadosFinais = []
+    dadosfinais = []
     for j in result1:
         for n in j:
             dados.append(n)
-        dadosFinais.append(dados[:])
+        dadosfinais.append(dados[:])
         dados.clear()
     
-    for j in dadosFinais:
+    for j in dadosfinais:
         if len(dezenas) == 0:
             dezenas = [i for i in range(1, 26)]
         for i in j:
@@ -250,7 +250,7 @@ def planilha(request):
         l15 = j[14]
         if len(dezenas)==0:
             l = [concurso, l1, l2, l3, l4, l5, l6, l7, l8, l9,
-            l10, l11, l12, l13, l14, l15, 'Ciclo Encerrado', count]
+            l10, l11, l12, l13, l14, l15, 'ciclo encerrado', count]
         else:
             l = [concurso, l1, l2, l3, l4, l5, l6, l7, l8, l9,
             l10, l11, l12, l13, l14, l15, dezenas]
@@ -261,46 +261,46 @@ def planilha(request):
     return f
 
 @login_required
-# Defina a função para obter os dados da tabela
+# defina a função para obter os dados da tabela
 def get_dados_tabela():
-    # Substitua esta lógica de exemplo pela lógica real para obter seus dados
-    # Por exemplo, você pode consultar o modelo Sorteio para obter os dados
-    dados = Sorteio.objects.all()  # Consulta para obter todos os objetos Sorteio
+    # substitua esta lógica de exemplo pela lógica real para obter seus dados
+    # por exemplo, você pode consultar o modelo sorteio para obter os dados
+    dados = Sorteio.objects.all()  # consulta para obter todos os objetos sorteio
     return dados
 
 @login_required
 def exportar_tabela_excel(request):
-    # Recupere todos os jogos do banco de dados
+    # recupere todos os jogos do banco de dados
     jogos = Sorteio.objects.all().order_by('-concurso')
 
-    # Crie um contexto para passar os jogos para o template do Excel
+    # crie um contexto para passar os jogos para o template do excel
     context = {
         'dados': jogos,
     }
 
-    # Renderize o template HTML que contém a tabela em Excel
+    # renderize o template html que contém a tabela em excel
     template = get_template('tabela_excel.html')
     html = template.render(context)
 
-    # Crie um arquivo temporário para armazenar o PDF
+    # crie um arquivo temporário para armazenar o pdf
     result = HttpResponse(content_type='application/vnd.ms-excel')
-    result['Content-Disposition'] = 'attachment; filename="tabela_excel.xls"'
+    result['content-disposition'] = 'attachment; filename="tabela_excel.xls"'
 
-    # Converta o HTML para PDF usando a biblioteca xhtml2pdf
-    #pdf = pisa.pisaDocument(html, result)
+    # converta o html para pdf usando a biblioteca xhtml2pdf
+    #pdf = pisa.pisadocument(html, result)
 
-    # Verifique se a conversão para PDF foi bem-sucedida
+    # verifique se a conversão para pdf foi bem-sucedida
     #if not pdf.err:
     #    return result
 
-    return HttpResponse('Erro ao gerar o arquivo Excel.', content_type='text/plain')
+    return HttpResponse('erro ao gerar o arquivo excel.', content_type='text/plain')
 
 @login_required
 def descubra(request):
-    # Recuperar o último sorteio
+    # recuperar o último sorteio
     last = Sorteio.objects.all().latest()
 
-    # Inicializar variáveis
+    # inicializar variáveis
     form = Valida()
     ultimo_sorteio = [
         last.B1, last.B2, last.B3, last.B4, last.B5,
@@ -309,14 +309,14 @@ def descubra(request):
     ]
     acertos = 0
 
-    # Processar o formulário se for um POST
-    if request.method == 'POST':
-        form = Valida(request.POST)
+    # processar o formulário se for um post
+    if request.method == 'post':
+        form = Valida(request.post)
         if form.is_valid():
             jogo_digitado = form.cleaned_data['jogo']
             jogo_digitado = [int(numero) for numero in jogo_digitado.split(',')]
 
-            # Comparar os números do jogo digitado com o último sorteio
+            # comparar os números do jogo digitado com o último sorteio
             acertos = sum(1 for numero in jogo_digitado if numero in ultimo_sorteio)
 
     context = {
@@ -332,27 +332,27 @@ def scrapping(request):
 
 
 def importar_sorteios(request):
-    if request.method == 'POST' and request.FILES['file']:
-        file = request.FILES['file']
+    if request.method == 'post' and request.files['file']:
+        file = request.files['file']
         if file.name.endswith('.xlsx'):
             workbook = openpyxl.load_workbook(file)
             worksheet = workbook.active
 
-            for row in worksheet.iter_rows(values_only=True):
+            for row in worksheet.iter_rows(values_only=true):
                 sorteio_id = row[0]
-                data_sorteio = datetime.strptime(row[1], '%d/%m/%Y').date()
+                data_sorteio = datetime.strptime(row[1], '%d/%m/%y').date()
                 numeros = row[2:]
 
-                # Passando todos os campos como argumentos de palavra-chave
-                sorteio = Sorteio(concurso=sorteio_id, data_sorteio=data_sorteio, B1=numeros[0], B2=numeros[1],
-                                  B3=numeros[2], B4=numeros[3], B5=numeros[4], B6=numeros[5], B7=numeros[6],
-                                  B8=numeros[7], B9=numeros[8], B10=numeros[9], B11=numeros[10], B12=numeros[11],
-                                  B13=numeros[12], B14=numeros[13], B15=numeros[14], qtd_ganhadores_15=row[16])
+                # passando todos os campos como argumentos de palavra-chave
+                sorteio = sorteio(concurso=sorteio_id, data_sorteio=data_sorteio, b1=numeros[0], b2=numeros[1],
+                                  b3=numeros[2], b4=numeros[3], b5=numeros[4], b6=numeros[5], b7=numeros[6],
+                                  b8=numeros[7], b9=numeros[8], b10=numeros[9], b11=numeros[10], b12=numeros[11],
+                                  b13=numeros[12], b14=numeros[13], b15=numeros[14], qtd_ganhadores_15=row[16])
                 sorteio.save()
 
-            last = Sorteio.objects.all().latest()
+            last = sorteio.objects.all().latest()
             return render(request, 'index.html', {'last' : last})
         else:
-            return HttpResponse("Por favor, selecione um arquivo .xlsx.")
+            return HttpResponse("por favor, selecione um arquivo .xlsx.")
     return render(request, 'importar_sorteios.html')
 
