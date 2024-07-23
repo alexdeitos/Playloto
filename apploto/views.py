@@ -170,9 +170,10 @@ def sorteia(request):
             if n in lista_fixas:
                 countfixas += 1
         '''soma > 190 and soma < 200 and'''       
-        if  impar >= 7 and impar <= 8 and fibo >=3 and fibo <= 4 and primo >= 3 and primo<= 5:
-            #    break
-            # adiciona o resultados das variáveis a uma variável que será enviada ao cliente  
+        if  soma > 190 and soma < 200 and countfixas == len(lista_fixas) and impar == 7 and fibo == 4 and primo == 5:
+            #break
+        # adiciona o resultados das variáveis a uma variável que será enviada ao cliente
+        
             context = {
                 "novo_sorteio" : sorted(novo_sorteio),
                 'impar': impar,
@@ -180,12 +181,13 @@ def sorteia(request):
                 'primo': primo,
                 'moldura': moldura,
                 'multiplo': multiplo,
-                'countrepetidas': countRepetidas,
+                'countRepetidas': countRepetidas,
                 'soma' : soma,
                 'form' : form,
                 'fixas': fixas,
                 'lista_fixas' : lista_fixas,
             }
+            break
     
     return render(request, 'sorteia.html', context)
 
