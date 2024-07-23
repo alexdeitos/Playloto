@@ -170,7 +170,7 @@ def sorteia(request):
             if n in lista_fixas:
                 countfixas += 1
         '''soma > 190 and soma < 200 and'''       
-        if  impar == 8 and fibo == 4 and primo == 5:
+        if  impar == 7 and fibo == 4 and primo == 5:
             #    break
             # adiciona o resultados das variáveis a uma variável que será enviada ao cliente  
             context = {
