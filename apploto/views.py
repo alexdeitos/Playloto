@@ -333,28 +333,49 @@ def scrapping(request):
     return render(request, 'resultados.html', context={})
 
 
+import openpyxl
+from datetime import datetime
+from django.shortcuts import render
+from django.http import HttpResponse
+from .models import Sorteio
+
+import openpyxl
+from django.shortcuts import render
+from django.http import HttpResponse
+from .models import Sorteio
+
 def importar_sorteios(request):
-    if request.method == 'post' and request.files['file']:
-        file = request.files['file']
+    if request.method == 'POST' and request.FILES.get('file'):
+        file = request.FILES['file']
         if file.name.endswith('.xlsx'):
             workbook = openpyxl.load_workbook(file)
             worksheet = workbook.active
 
-            for row in worksheet.iter_rows(values_only=true):
-                sorteio_id = row[0]
-                data_sorteio = datetime.strptime(row[1], '%d/%m/%y').date()
-                numeros = row[2:]
+            # Iterar pelas linhas a partir da segunda (ignorando o cabeçalho)
+            for row in worksheet.iter_rows(min_row=2, values_only=True):
+                # Checar se a linha é vazia
+                if row[0] is not None:
+                    sorteio_id = row[0]
+                    data_sorteio = row[1]  # Data já está no formato datetime
+                    numeros = row[2:17]  # Coluna B1 até B15
+                    qtd_ganhadores_15 = row[17]
 
-                # passando todos os campos como argumentos de palavra-chave
-                sorteio = sorteio(concurso=sorteio_id, data_sorteio=data_sorteio, b1=numeros[0], b2=numeros[1],
-                                  b3=numeros[2], b4=numeros[3], b5=numeros[4], b6=numeros[5], b7=numeros[6],
-                                  b8=numeros[7], b9=numeros[8], b10=numeros[9], b11=numeros[10], b12=numeros[11],
-                                  b13=numeros[12], b14=numeros[13], b15=numeros[14], qtd_ganhadores_15=row[16])
-                sorteio.save()
+                    # Criar um novo objeto Sorteio e salvá-lo no banco de dados
+                    sorteio = Sorteio(
+                        concurso=sorteio_id, 
+                        data_sorteio=data_sorteio,
+                        B1=numeros[0], B2=numeros[1], B3=numeros[2], B4=numeros[3],
+                        B5=numeros[4], B6=numeros[5], B7=numeros[6], B8=numeros[7],
+                        B9=numeros[8], B10=numeros[9], B11=numeros[10], B12=numeros[11],
+                        B13=numeros[12], B14=numeros[13], B15=numeros[14],
+                        qtd_ganhadores_15=qtd_ganhadores_15
+                    )
+                    sorteio.save()
 
-            last = sorteio.objects.all().latest()
-            return render(request, 'index.html', {'last' : last})
+            # Obter o último sorteio inserido para exibição
+            last = Sorteio.objects.all().latest()
+            return render(request, 'index.html', {'last': last})
         else:
-            return HttpResponse("por favor, selecione um arquivo .xlsx.")
+            return HttpResponse("Por favor, selecione um arquivo .xlsx.")
     return render(request, 'importar_sorteios.html')
 
