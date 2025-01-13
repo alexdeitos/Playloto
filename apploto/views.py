@@ -44,7 +44,7 @@ def tabelaMovimento(request):
     last = Sorteio.objects.all().latest()
     last_concurso = last.concurso
     last_data = last.data_sorteio
-    query_set = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').filter(concurso__gte=(last_concurso-7)).order_by('concurso')
+    query_set = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').filter(concurso__gte=(last_concurso-15)).order_by('concurso')
     #query_set = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').order_by('concurso')
     query_set1 = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').filter(data_sorteio__gte=data).order_by('-concurso')
     result = []
@@ -170,7 +170,7 @@ def sorteia(request):
             if n in lista_fixas:
                 countfixas += 1
         '''soma > 190 and soma < 200 and'''       
-        if  soma > 190 and soma < 200 and countfixas == len(lista_fixas) and impar == 7 and fibo == 4 and primo == 5:
+        if  soma > 190 and soma < 200 and countfixas == len(lista_fixas) and impar == 8 and fibo == 4 and primo == 5:
             #break
         # adiciona o resultados das variáveis a uma variável que será enviada ao cliente
         
@@ -332,18 +332,6 @@ def descubra(request):
 def scrapping(request):
     return render(request, 'resultados.html', context={})
 
-
-import openpyxl
-from datetime import datetime
-from django.shortcuts import render
-from django.http import HttpResponse
-from .models import Sorteio
-
-import openpyxl
-from django.shortcuts import render
-from django.http import HttpResponse
-from .models import Sorteio
-
 def importar_sorteios(request):
     if request.method == 'POST' and request.FILES.get('file'):
         file = request.FILES['file']
@@ -378,4 +366,8 @@ def importar_sorteios(request):
         else:
             return HttpResponse("Por favor, selecione um arquivo .xlsx.")
     return render(request, 'importar_sorteios.html')
+
+def todos_sorteios_mega_sena(request):
+    mega_sena_sorteios = Sorteio.objects.all()
+    return render(request, 'sorteios_mega_sena.html', {'sorteios': mega_sena_sorteios})
 

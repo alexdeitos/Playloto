@@ -106,6 +106,55 @@
                         </tr>
                     </tfoot>
                 </table>
+                <table style="border: 1px solid white;" class="table table-bordered table-condensed">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Concurso</th>
+                            <th scope="col">Data Sorteio</th>
+                            <th scope="col" colspan="5">Dezenas</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <td style="background-color:808080">{{  last.concurso }}</td>
+                        <td style="background-color:808080">{{  last.data_sorteio }}</td>
+                        {% if  last.B1 == 'x' %}
+                        <td style="background-color:black;"></td>
+                        {% else %}
+                        <td style="background-color:808080">{{  last.B1 }}</td>
+                        {% endif %} 
+                        {% if  last.B2 == 'x' %}
+                        <td style="background-color:black;"></td>
+                        {% else %}
+                        <td style="background-color:808080">{{  last.B2 }}</td>
+                        {% endif %} 
+                        {% if  last.B3 == 'x' %}
+                        <td style="background-color:black;"></td>
+                        {% else %}
+                        <td style="background-color:808080">{{  last.B3 }}</td>
+                        {% endif %} 
+                        {% if  last.B4 == 'x' %}
+                        <td style="background-color:black;"></td>
+                        {% else %}
+                        <td style="background-color:808080">{{  last.B4 }}</td>
+                        {% endif %} 
+                        {% if  last.B5 == 'x' %}
+                        <td style="background-color:black;"></td>
+                        {% else %}
+                        <td style="background-color:808080">{{  last.B5 }}</td>
+                        {% endif %} 
+                        {% if  last.B6 == 'x' %}
+                        <td style="background-color:black;"></td>
+                        {% else %}
+                        <td style="background-color:808080">{{  last.B6 }}</td>
+                        {% endif %} 
+                        {% if  last.B7 == 'x' %}
+                        <td style="background-color:black;"></td>
+                        {% else %}
+                        <td style="background-color:808080">{{  last.B7 }}</td>
+                        {% endif %} 
+                    </tbody>
+                </table>
             </div>
             <div class="col-3"></div>
         </div>

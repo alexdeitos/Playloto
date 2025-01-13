@@ -57,3 +57,40 @@ class MeusJogos(models.Model):
 
     def __str__(self):
         return str(self.concurso)
+    
+
+# Create your models here.
+# Campos da tabela sorteio 
+# Concurso;Data Sorteio;B1;B2;B3;B4;B5;B6
+class MegaSenaSorteio(models.Model):
+    concurso = models.BigIntegerField(primary_key=True)
+    data_sorteio = models.DateField()
+    B1 = models.SmallIntegerField()
+    B2 = models.SmallIntegerField()
+    B3 = models.SmallIntegerField()
+    B4 = models.SmallIntegerField()
+    B5 = models.SmallIntegerField()
+    B6 = models.SmallIntegerField()
+
+    class Meta:
+        get_latest_by = ('concurso')
+
+    def __str__(self):
+        return str(self.concurso)
+    
+class MeusJogosMegaSena(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    concurso = models.BigIntegerField()
+    data_sorteio = models.DateField()
+    B1 = models.SmallIntegerField()
+    B2 = models.SmallIntegerField()
+    B3 = models.SmallIntegerField()
+    B4 = models.SmallIntegerField()
+    B5 = models.SmallIntegerField()
+    B6 = models.SmallIntegerField()
+
+    class Meta:
+        get_latest_by = ('concurso')
+
+    def __str__(self):
+        return str(self.concurso)
