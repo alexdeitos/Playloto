@@ -191,6 +191,7 @@ def sorteia(request):
     
     return render(request, 'sorteia.html', context)
 
+'''
 @login_required
 def planilha(request):
     
@@ -261,6 +262,56 @@ def planilha(request):
         
     f.close()    
     return f
+'''
+
+# correcao do chatgpt 2025-06-28
+@login_required
+def planilha(request):
+    
+    dezenas = list(range(1, 26))
+    
+    query_set1 = Sorteio.objects.values_list(
+        'B1','B2','B3','B4','B5','B6','B7','B8','B9','B10',
+        'B11','B12','B13','B14','B15'
+    )
+    
+    response = HttpResponse(
+        content_type='text/csv',
+        headers={'content-disposition': 'attachment; filename=games.csv'},
+    )
+    writer = csv.writer(response)
+    
+    writer.writerow(["sep=,"])
+    header = ['concurso'] + [f'd{i}' for i in range(1, 16)] + ['faltam', 'ciclo']
+    writer.writerow(header)
+    
+    count = 0
+    concurso = 1
+    
+    for j in query_set1:
+        if len(dezenas) == 0:
+            dezenas = list(range(1, 26))
+        
+        # Remove dezenas presentes no concurso
+        for i in j:
+            if i in dezenas:
+                dezenas.remove(i)
+        
+        # Verifica ciclo encerrado
+        if len(dezenas) == 0:
+            count += 1
+            faltam_val = 'ciclo encerrado'
+            ciclo_val = count
+            dezenas = []  # para garantir
+        else:
+            faltam_val = str(dezenas)
+            ciclo_val = ''
+        
+        linha = [concurso] + list(j) + [faltam_val, ciclo_val]
+        writer.writerow(linha)
+        concurso += 1
+    
+    return response
 
 @login_required
 # defina a função para obter os dados da tabela
