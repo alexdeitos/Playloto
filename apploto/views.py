@@ -1,28 +1,22 @@
-#from itertools import count
+import csv
+from datetime import date, datetime, timedelta
 from operator import length_hint
-from django.shortcuts import render,redirect
-from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
-from django.template import Library;register = Library()
-#from .models import Sorteio, MeusJogos
-#from django.core.paginator import Paginator
-from datetime import date, timedelta
 from random import randint
-#from openpyxl import Workbook
-#from openpyxl.styles import PatternFill, Font
+
+import openpyxl
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.template import Context, Library
+from django.template.loader import get_template
+from openpyxl.styles import Font, PatternFill
 from openpyxl.utils import get_column_letter
+
 from .cores_celulas import *
 from .forms import FixasForm, Valida
-#from django.views.generic import ListView
-from .forms import Valida
-import csv
-#import io
-#from django.http import FileResponse
-#from django.template import Context
-from django.template.loader import get_template
-import openpyxl
-from datetime import datetime
 from .models import Sorteio
+
+register = Library()
 
 
 # Create your views here.
@@ -31,77 +25,196 @@ def index(request):
 
     # Se não houver sorteios, redirecione para a página de importação
     if not last:
-        return redirect('apploto:importar_sorteios')
+        return redirect("apploto:importar_sorteios")
 
     last = Sorteio.objects.all().latest()
-    return render(request, 'index.html', {'last' : last})
+    return render(request, "index.html", {"last": last})
+
 
 @login_required
 def tabelaMovimento(request):
     today_date = date.today()
     td = timedelta(15)
-    data =  today_date - td
+    data = today_date - td
     last = Sorteio.objects.all().latest()
     last_concurso = last.concurso
     last_data = last.data_sorteio
-    query_set = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').filter(concurso__gte=(last_concurso-15)).order_by('concurso')
-    #query_set = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').order_by('concurso')
-    query_set1 = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').filter(data_sorteio__gte=data).order_by('-concurso')
+    query_set = (
+        Sorteio.objects.values_list(
+            "B1",
+            "B2",
+            "B3",
+            "B4",
+            "B5",
+            "B6",
+            "B7",
+            "B8",
+            "B9",
+            "B10",
+            "B11",
+            "B12",
+            "B13",
+            "B14",
+            "B15",
+        )
+        .filter(concurso__gte=(last_concurso - 15))
+        .order_by("concurso")
+    )
+    # query_set = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15').order_by('concurso')
+    query_set1 = (
+        Sorteio.objects.values_list(
+            "B1",
+            "B2",
+            "B3",
+            "B4",
+            "B5",
+            "B6",
+            "B7",
+            "B8",
+            "B9",
+            "B10",
+            "B11",
+            "B12",
+            "B13",
+            "B14",
+            "B15",
+        )
+        .filter(data_sorteio__gte=data)
+        .order_by("-concurso")
+    )
     result = []
     result1 = []
     # lista_games agora é uma lista de jogos de 15 dezenas cada jogo
-    # contador = 0 
-    
+    # contador = 0
+
     for c in query_set:
         result.append(c)
     for c in query_set1:
         result1.append(c)
-    vetJogo = ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x',
-               'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x']
+    vetJogo = [
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+        "x",
+    ]
 
     vetJogos = list()
     vetJogos1 = list()
     for sorteio in result:
         for dezena in sorteio:
-            vetJogo[dezena-1] = dezena
+            vetJogo[dezena - 1] = dezena
         vetJogos.append(vetJogo[:])
         vetJogo.clear()
-        vetJogo = ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x',
-                   'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x']
+        vetJogo = [
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+        ]
     for sorteio in result1:
         for dezena in sorteio:
-            vetJogo[dezena-1] = dezena
+            vetJogo[dezena - 1] = dezena
         vetJogos1.append(vetJogo[:])
         vetJogo.clear()
-        vetJogo = ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x',
-                   'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x']
+        vetJogo = [
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+            "x",
+        ]
     ciclo = []
     countCiclo = 0
     for jogo in vetJogos:
         for dezena in jogo:
-            if dezena in (range(1,25)):
+            if dezena in (range(1, 25)):
                 if dezena not in ciclo:
                     ciclo.append(dezena)
                 if len(ciclo) == 25:
                     countCiclo += 1
-                    context = {'countCiclo' : countCiclo, }
+                    context = {
+                        "countCiclo": countCiclo,
+                    }
 
     context = {
-        'qtd_jogos' : len(vetJogos),
-        'vetJogos': vetJogos,
-        'vetJogos1' : vetJogos1,
-        'last_concurso' : last_concurso, 
-        'nome_fibo' : 'Fibonacci',
-        'data_sorteio':last_data,
+        "qtd_jogos": len(vetJogos),
+        "vetJogos": vetJogos,
+        "vetJogos1": vetJogos1,
+        "last_concurso": last_concurso,
+        "nome_fibo": "Fibonacci",
+        "data_sorteio": last_data,
     }
 
-    return render(request, 'TabelaMovimento.html',context)
+    return render(request, "TabelaMovimento.html", context)
+
 
 @login_required
 def sorteia(request):
-    
+
     while True:
-        #variáveis de validação
+        # variáveis de validação
         countRepetidas = 0
         impar = fibo = primo = multiplo = moldura = soma = countfixas = 0
         vetorPrimos = [2, 3, 5, 7, 11, 13, 17, 19, 23]
@@ -111,11 +224,11 @@ def sorteia(request):
         last_game = list()
         novo_sorteio = list()
         form = FixasForm()
-        fixas = ''
-        lista_fixas =[]
-        #adiciona o último sorteio ao last
+        fixas = ""
+        lista_fixas = []
+        # adiciona o último sorteio ao last
         last = Sorteio.objects.all().latest()
-        
+
         # adiciona os valores de last a lista last_games
         last_game.append(last.B1)
         last_game.append(last.B2)
@@ -132,29 +245,29 @@ def sorteia(request):
         last_game.append(last.B13)
         last_game.append(last.B14)
         last_game.append(last.B15)
-        
+
         while True:
-            aleatorio = randint(1,25)
+            aleatorio = randint(1, 25)
             if aleatorio not in novo_sorteio:
                 novo_sorteio.append(aleatorio)
                 if len(novo_sorteio) == 15:
                     break
-        
-        if request.method == 'POST':
+
+        if request.method == "POST":
             # Create a form instance and populate it with data from the request (binding):
             form = FixasForm(request.POST)
             # Check if the form is valid:
             if form.is_valid():
                 # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
-                fixas = form.cleaned_data['fixas']
-                fixas = fixas.split(',')
+                fixas = form.cleaned_data["fixas"]
+                fixas = fixas.split(",")
                 for f in fixas:
                     lista_fixas.append(int(f))
-        
-        # realiza um count das variáveis para retornar para o usuário 
+
+        # realiza um count das variáveis para retornar para o usuário
         for n in novo_sorteio:
             soma += n
-            
+
             if n in last_game:
                 countRepetidas += 1
             if n % 2 == 1:
@@ -169,37 +282,45 @@ def sorteia(request):
                 multiplo += 1
             if n in lista_fixas:
                 countfixas += 1
-        '''soma > 190 and soma < 200 and'''       
-        if  soma > 185 and soma < 208 and countfixas == len(lista_fixas) and impar == 7 and fibo == 4 and primo == 5:
-            #break
-        # adiciona o resultados das variáveis a uma variável que será enviada ao cliente
-        
+        """soma > 190 and soma < 200 and"""
+        if (
+            soma > 185
+            and soma < 208
+            and countfixas == len(lista_fixas)
+            and impar == 7
+            and fibo == 4
+            and primo == 5
+        ):
+            # break
+            # adiciona o resultados das variáveis a uma variável que será enviada ao cliente
+
             context = {
-                "novo_sorteio" : sorted(novo_sorteio),
-                'impar': impar,
-                'fibo': fibo,
-                'primo': primo,
-                'moldura': moldura,
-                'multiplo': multiplo,
-                'countRepetidas': countRepetidas,
-                'soma' : soma,
-                'form' : form,
-                'fixas': fixas,
-                'lista_fixas' : lista_fixas,
+                "novo_sorteio": sorted(novo_sorteio),
+                "impar": impar,
+                "fibo": fibo,
+                "primo": primo,
+                "moldura": moldura,
+                "multiplo": multiplo,
+                "countRepetidas": countRepetidas,
+                "soma": soma,
+                "form": form,
+                "fixas": fixas,
+                "lista_fixas": lista_fixas,
             }
             break
-    
-    return render(request, 'sorteia.html', context)
 
-'''
+    return render(request, "sorteia.html", context)
+
+
+"""
 @login_required
 def planilha(request):
-    
+
     dezenas = [i for i in range(1, 26)] 
-    
+
     query_set1 = Sorteio.objects.values_list('B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','B12','B13','B14','B15')
     result1 = []
-        
+
     for d in query_set1:
         result1.append(d)
 
@@ -219,7 +340,7 @@ def planilha(request):
     text = ["sep=,"]
     writer.writerow(text)
     writer.writerow(header)
-    
+
     dados = []
     dadosfinais = []
     for j in result1:
@@ -227,7 +348,7 @@ def planilha(request):
             dados.append(n)
         dadosfinais.append(dados[:])
         dados.clear()
-    
+
     for j in dadosfinais:
         if len(dezenas) == 0:
             dezenas = [i for i in range(1, 26)]
@@ -259,59 +380,74 @@ def planilha(request):
             l10, l11, l12, l13, l14, l15, dezenas]
         concurso += 1
         writer.writerow(l)
-        
+
     f.close()    
     return f
-'''
+"""
+
 
 # correcao do chatgpt 2025-06-28
 @login_required
 def planilha(request):
-    
+
     dezenas = list(range(1, 26))
-    
+
     query_set1 = Sorteio.objects.values_list(
-        'B1','B2','B3','B4','B5','B6','B7','B8','B9','B10',
-        'B11','B12','B13','B14','B15'
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "B5",
+        "B6",
+        "B7",
+        "B8",
+        "B9",
+        "B10",
+        "B11",
+        "B12",
+        "B13",
+        "B14",
+        "B15",
     )
-    
+
     response = HttpResponse(
-        content_type='text/csv',
-        headers={'content-disposition': 'attachment; filename=games.csv'},
+        content_type="text/csv",
+        headers={"content-disposition": "attachment; filename=games.csv"},
     )
     writer = csv.writer(response)
-    
+
     writer.writerow(["sep=,"])
-    header = ['concurso'] + [f'd{i}' for i in range(1, 16)] + ['faltam', 'ciclo']
+    header = ["concurso"] + [f"d{i}" for i in range(1, 16)] + ["faltam", "ciclo"]
     writer.writerow(header)
-    
+
     count = 0
     concurso = 1
-    
+
     for j in query_set1:
         if len(dezenas) == 0:
             dezenas = list(range(1, 26))
-        
+
         # Remove dezenas presentes no concurso
         for i in j:
             if i in dezenas:
                 dezenas.remove(i)
-        
+
         # Verifica ciclo encerrado
         if len(dezenas) == 0:
             count += 1
-            faltam_val = 'ciclo encerrado'
+            faltam_val = "ciclo encerrado"
             ciclo_val = count
             dezenas = []  # para garantir
         else:
             faltam_val = str(dezenas)
-            ciclo_val = ''
-        
+            ciclo_val = ""
+
         linha = [concurso] + list(j) + [faltam_val, ciclo_val]
         writer.writerow(linha)
         concurso += 1
-    
+
     return response
+
 
 @login_required
 # defina a função para obter os dados da tabela
@@ -321,32 +457,34 @@ def get_dados_tabela():
     dados = Sorteio.objects.all()  # consulta para obter todos os objetos sorteio
     return dados
 
+
 @login_required
 def exportar_tabela_excel(request):
     # recupere todos os jogos do banco de dados
-    jogos = Sorteio.objects.all().order_by('-concurso')
+    jogos = Sorteio.objects.all().order_by("-concurso")
 
     # crie um contexto para passar os jogos para o template do excel
     context = {
-        'dados': jogos,
+        "dados": jogos,
     }
 
     # renderize o template html que contém a tabela em excel
-    template = get_template('tabela_excel.html')
+    template = get_template("tabela_excel.html")
     html = template.render(context)
 
     # crie um arquivo temporário para armazenar o pdf
-    result = HttpResponse(content_type='application/vnd.ms-excel')
-    result['content-disposition'] = 'attachment; filename="tabela_excel.xls"'
+    result = HttpResponse(content_type="application/vnd.ms-excel")
+    result["content-disposition"] = 'attachment; filename="tabela_excel.xls"'
 
     # converta o html para pdf usando a biblioteca xhtml2pdf
-    #pdf = pisa.pisadocument(html, result)
+    # pdf = pisa.pisadocument(html, result)
 
     # verifique se a conversão para pdf foi bem-sucedida
-    #if not pdf.err:
+    # if not pdf.err:
     #    return result
 
-    return HttpResponse('erro ao gerar o arquivo excel.', content_type='text/plain')
+    return HttpResponse("erro ao gerar o arquivo excel.", content_type="text/plain")
+
 
 @login_required
 def descubra(request):
@@ -356,18 +494,30 @@ def descubra(request):
     # inicializar variáveis
     form = Valida()
     ultimo_sorteio = [
-        last.B1, last.B2, last.B3, last.B4, last.B5,
-        last.B6, last.B7, last.B8, last.B9, last.B10,
-        last.B11, last.B12, last.B13, last.B14, last.B15
+        last.B1,
+        last.B2,
+        last.B3,
+        last.B4,
+        last.B5,
+        last.B6,
+        last.B7,
+        last.B8,
+        last.B9,
+        last.B10,
+        last.B11,
+        last.B12,
+        last.B13,
+        last.B14,
+        last.B15,
     ]
     acertos = 0
 
     # processar o formulário se for um post
-    if request.method == 'post':
+    if request.method == "post":
         form = Valida(request.post)
         if form.is_valid():
-            jogo_digitado = form.cleaned_data['jogo']
-            jogo_digitado = [int(numero) for numero in jogo_digitado.split(',')]
+            jogo_digitado = form.cleaned_data["jogo"]
+            jogo_digitado = [int(numero) for numero in jogo_digitado.split(",")]
 
             # comparar os números do jogo digitado com o último sorteio
             acertos = sum(1 for numero in jogo_digitado if numero in ultimo_sorteio)
@@ -378,15 +528,17 @@ def descubra(request):
         "form": form,
     }
 
-    return render(request, 'descubra.html', context)
+    return render(request, "descubra.html", context)
+
 
 def scrapping(request):
-    return render(request, 'resultados.html', context={})
+    return render(request, "resultados.html", context={})
+
 
 def importar_sorteios(request):
-    if request.method == 'POST' and request.FILES.get('file'):
-        file = request.FILES['file']
-        if file.name.endswith('.xlsx'):
+    if request.method == "POST" and request.FILES.get("file"):
+        file = request.FILES["file"]
+        if file.name.endswith(".xlsx"):
             workbook = openpyxl.load_workbook(file)
             worksheet = workbook.active
 
@@ -401,24 +553,186 @@ def importar_sorteios(request):
 
                     # Criar um novo objeto Sorteio e salvá-lo no banco de dados
                     sorteio = Sorteio(
-                        concurso=sorteio_id, 
+                        concurso=sorteio_id,
                         data_sorteio=data_sorteio,
-                        B1=numeros[0], B2=numeros[1], B3=numeros[2], B4=numeros[3],
-                        B5=numeros[4], B6=numeros[5], B7=numeros[6], B8=numeros[7],
-                        B9=numeros[8], B10=numeros[9], B11=numeros[10], B12=numeros[11],
-                        B13=numeros[12], B14=numeros[13], B15=numeros[14],
-                        qtd_ganhadores_15=qtd_ganhadores_15
+                        B1=numeros[0],
+                        B2=numeros[1],
+                        B3=numeros[2],
+                        B4=numeros[3],
+                        B5=numeros[4],
+                        B6=numeros[5],
+                        B7=numeros[6],
+                        B8=numeros[7],
+                        B9=numeros[8],
+                        B10=numeros[9],
+                        B11=numeros[10],
+                        B12=numeros[11],
+                        B13=numeros[12],
+                        B14=numeros[13],
+                        B15=numeros[14],
+                        qtd_ganhadores_15=qtd_ganhadores_15,
                     )
                     sorteio.save()
 
             # Obter o último sorteio inserido para exibição
             last = Sorteio.objects.all().latest()
-            return render(request, 'index.html', {'last': last})
+            return render(request, "index.html", {"last": last})
         else:
             return HttpResponse("Por favor, selecione um arquivo .xlsx.")
-    return render(request, 'importar_sorteios.html')
+    return render(request, "importar_sorteios.html")
+
+
+@login_required
+def ciclos(request):
+    # Recuperar os últimos 30 sorteios
+    ultimos_sorteios = Sorteio.objects.all().order_by("-concurso")[:30]
+
+    if not ultimos_sorteios:
+        return render(
+            request,
+            "ciclos.html",
+            {"error": "Nenhum sorteio encontrado no banco de dados."},
+        )
+
+    # Inverter a ordem para mostrar do mais antigo para o mais recente
+    sorteios_ordenados = list(reversed(ultimos_sorteios))
+
+    # Lista de todas as dezenas (1 a 25)
+    todas_dezenas = list(range(1, 26))
+    dezenas_pendentes = todas_dezenas.copy()
+
+    ciclos_completos = 0
+    dados_ciclos = []
+    estatisticas_ciclos = []
+
+    # Para estatísticas por ciclo
+    ciclo_atual = {
+        "numero": 1,
+        "sorteios": 0,
+        "dezenas_sorteadas": 0,
+        "inicio_concurso": (
+            sorteios_ordenados[0].concurso if sorteios_ordenados else None
+        ),
+    }
+
+    for sorteio in sorteios_ordenados:
+        # Obter dezenas do sorteio atual
+        dezenas_sorteio = [
+            sorteio.B1,
+            sorteio.B2,
+            sorteio.B3,
+            sorteio.B4,
+            sorteio.B5,
+            sorteio.B6,
+            sorteio.B7,
+            sorteio.B8,
+            sorteio.B9,
+            sorteio.B10,
+            sorteio.B11,
+            sorteio.B12,
+            sorteio.B13,
+            sorteio.B14,
+            sorteio.B15,
+        ]
+
+        # Contar quantas dezenas foram realmente removidas (não repetidas)
+        dezenas_removidas = []
+        for dezena in dezenas_sorteio:
+            if dezena in dezenas_pendentes:
+                dezenas_pendentes.remove(dezena)
+                dezenas_removidas.append(dezena)
+                ciclo_atual["dezenas_sorteadas"] += 1
+
+        ciclo_atual["sorteios"] += 1
+
+        # Verificar se ciclo foi completado
+        ciclo_completo = len(dezenas_pendentes) == 0
+
+        if ciclo_completo:
+            # Salvar estatísticas do ciclo completo
+            estatisticas_ciclos.append(
+                {
+                    "numero": ciclo_atual["numero"],
+                    "sorteios": ciclo_atual["sorteios"],
+                    "dezenas_por_sorteio": (
+                        ciclo_atual["dezenas_sorteadas"] / ciclo_atual["sorteios"]
+                        if ciclo_atual["sorteios"] > 0
+                        else 0
+                    ),
+                    "inicio": ciclo_atual["inicio_concurso"],
+                    "fim": sorteio.concurso,
+                }
+            )
+
+            ciclos_completos += 1
+
+            # Iniciar novo ciclo
+            dezenas_pendentes = todas_dezenas.copy()
+            ciclo_atual = {
+                "numero": ciclos_completos + 1,
+                "sorteios": 0,
+                "dezenas_sorteadas": 0,
+                "inicio_concurso": sorteio.concurso + 1,
+            }
+
+            # Remover novamente as dezenas deste sorteio que completou o ciclo
+            for dezena in dezenas_sorteio:
+                if dezena in dezenas_pendentes:
+                    dezenas_pendentes.remove(dezena)
+                    ciclo_atual["dezenas_sorteadas"] += 1
+            ciclo_atual["sorteios"] = 1
+
+        # Preparar dados para template
+        dados_ciclos.append(
+            {
+                "concurso": sorteio.concurso,
+                "data_sorteio": sorteio.data_sorteio,
+                "dezenas": sorted(dezenas_sorteio),
+                "dezenas_removidas": sorted(dezenas_removidas),
+                "dezenas_pendentes": sorted(dezenas_pendentes.copy()),
+                "ciclo_completo": ciclo_completo,
+                "numero_ciclo": ciclos_completos + 1,
+                "total_pendentes": len(dezenas_pendentes),
+            }
+        )
+
+    # Adicionar estatísticas do ciclo atual (incompleto)
+    if ciclo_atual["sorteios"] > 0:
+        estatisticas_ciclos.append(
+            {
+                "numero": ciclo_atual["numero"],
+                "sorteios": ciclo_atual["sorteios"],
+                "dezenas_por_sorteio": (
+                    ciclo_atual["dezenas_sorteadas"] / ciclo_atual["sorteios"]
+                    if ciclo_atual["sorteios"] > 0
+                    else 0
+                ),
+                "inicio": ciclo_atual["inicio_concurso"],
+                "fim": "Em andamento",
+                "completo": False,
+            }
+        )
+
+    context = {
+        "dados_ciclos": dados_ciclos,
+        "estatisticas_ciclos": estatisticas_ciclos,
+        "total_ciclos": ciclos_completos,
+        "ultimo_ciclo": ciclos_completos + 1 if dezenas_pendentes else ciclos_completos,
+        "dezenas_pendentes_atual": (
+            sorted(dezenas_pendentes) if dezenas_pendentes else todas_dezenas
+        ),
+        "total_sorteios": len(sorteios_ordenados),
+        "media_ciclos": (
+            sum(c["sorteios"] for c in estatisticas_ciclos if c.get("completo", True))
+            / len([c for c in estatisticas_ciclos if c.get("completo", True)])
+            if len([c for c in estatisticas_ciclos if c.get("completo", True)]) > 0
+            else 0
+        ),
+    }
+
+    return render(request, "ciclos.html", context)
+
 
 def todos_sorteios_mega_sena(request):
     mega_sena_sorteios = Sorteio.objects.all()
-    return render(request, 'sorteios_mega_sena.html', {'sorteios': mega_sena_sorteios})
-
+    return render(request, "sorteios_mega_sena.html", {"sorteios": mega_sena_sorteios})

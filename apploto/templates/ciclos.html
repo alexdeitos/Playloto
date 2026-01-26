@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Ciclos de Dezenas{% endblock %}
+
+{% block conteudo %}
+<div class="container-fluid mt-4">
+    <h2 class="text-center mb-4">Ciclos de Dezenas - Últimos {{ total_sorteios }} Sorteios</h2>
+    
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Resumo dos Ciclos</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Ciclos Completos:</strong> {{ total_ciclos }}</p>
+                    <p><strong>Ciclo Atual:</strong> {{ ultimo_ciclo }}</p>
+                    <p><strong>Dezenas Pendentes no Ciclo Atual:</strong> {{ dezenas_pendentes_atual|length }}</p>
+                    {% if dezenas_pendentes_atual %}
+                    <p><strong>Dezenas que faltam:</strong> {{ dezenas_pendentes_atual|join:", " }}</p>
+                    {% else %}
+                    <p><strong>Status:</strong> Ciclo completo! Todas as 25 dezenas já foram sorteadas.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Legenda</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                        <span class="badge bg-success p-2 me-2">Número</span>
+                        <span>Dezena sorteada e removida do ciclo</span>
+                    </div>
+                    <div class="d-flex align-items-center mb-2">
+                        <span class="badge bg-secondary p-2 me-2">Número</span>
+                        <span>Dezena sorteada (já tinha sido removida)</span>
+                    </div>
+                    <div class="d-flex align-items-center mb-2">
+                        <span class="badge bg-warning text-dark p-2 me-2">P</span>
+                        <span>Dezena pendente no ciclo</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="badge bg-danger p-2 me-2">C</span>
+                        <span>Ciclo completado neste concurso</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped" style="width: 100%;">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col" style="width: 60px;">Ciclo</th>
+                    <th scope="col" style="width: 80px;">Concurso</th>
+                    <th scope="col" style="width: 100px;">Data</th>
+                    <!-- CORRIGIDO: Agora são apenas 25 dezenas (1 a 25) -->
+                    {% for i in "12345678910111213141516171819202122232425"|make_list|slice:":25" %}
+                        <th scope="col" class="text-center" style="width: 30px; padding: 1px; font-size: 0.8em;">
+                            {{ forloop.counter }}
+                        </th>
+                    {% endfor %}
+                    <th scope="col" style="min-width: 30px;">Pendentes</th>
+                    <th scope="col" style="width: 70px;">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dado in dados_ciclos %}
+                <tr>
+                    <td class="text-center fw-bold">
+                        {{ dado.numero_ciclo }}
+                        {% if dado.ciclo_completo %}
+                        <span class="badge bg-danger ms-1" title="Ciclo completado" style="font-size: 0.6em;">C</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-center">{{ dado.concurso }}</td>
+                    <td class="text-center" style="font-size: 0.85em;">{{ dado.data_sorteio|date:"d/m/Y" }}</td>
+                    
+                    <!-- CORRIGIDO: Loop apenas para as 25 dezenas (1 a 25) -->
+                    {% for i in "12345678910111213141516171819202122232425"|make_list|slice:":25" %}
+                        {% with dezena_numero=forloop.counter %}
+                            <td class="text-center" style="padding: 1px;">
+                                {% if dezena_numero in dado.dezenas %}
+                                    {% if dezena_numero in dado.dezenas_removidas %}
+                                        <span class="badge bg-success p-0 d-block" style="font-size: 0.65em; min-width: 22px;" title="Sorteada e removida do ciclo">
+                                            {{ dezena_numero }}
+                                        </span>
+                                    {% else %}
+                                        <span class="badge bg-secondary p-0 d-block" style="font-size: 0.65em; min-width: 22px;" title="Sorteada (já tinha sido removida)">
+                                            {{ dezena_numero }}
+                                        </span>
+                                    {% endif %}
+                                {% else %}
+                                    {% if dezena_numero in dado.dezenas_pendentes %}
+                                        <span class="badge bg-warning text-dark p-0 d-block" style="font-size: 0.65em; min-width: 22px;" title="Pendente no ciclo atual">
+                                            P
+                                        </span>
+                                    {% else %}
+                                        <span class="text-muted d-block" style="font-size: 0.6em;">
+                                            {{ dezena_numero }}
+                                        </span>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        {% endwith %}
+                    {% endfor %}
+                    
+                    <td class="text-center" style="font-size: 0.8em;">
+                        {% if dado.dezenas_pendentes %}
+                            <small class="d-block">{{ dado.dezenas_pendentes|join:", " }}</small>
+                        {% else %}
+                            <span class="badge bg-success" style="font-size: 0.7em;">Completo</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-center fw-bold 
+                        {% if dado.total_pendentes == 0 %}
+                            text-success
+                        {% elif dado.total_pendentes <= 5 %}
+                            text-warning
+                        {% else %}
+                            text-danger
+                        {% endif %}"
+                        style="font-size: 0.9em;">
+                        {{ dado.total_pendentes }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0">Como Funciona</h5>
+                </div>
+                <div class="card-body">
+                    <p>O sistema acompanha o "ciclo" de todas as 25 dezenas da loteria:</p>
+                    <ul>
+                        <li>Começa com todas as 25 dezenas pendentes</li>
+                        <li>A cada sorteio, as dezenas sorteadas são removidas da lista de pendentes</li>
+                        <li>Quando todas as 25 dezenas são sorteadas, o ciclo se completa e recomeça</li>
+                        <li>A tabela mostra os últimos 30 sorteios e o status de cada ciclo</li>
+                    </ul>
+                    <p class="mb-0"><strong>Dica:</strong> Quando restam poucas dezenas no ciclo atual, há maior probabilidade de que sejam sorteadas nos próximos concursos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .table th {
+        background-color: #343a40;
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+    
+    .badge {
+        font-size: 0.75em;
+    }
+    
+    table td {
+        vertical-align: middle;
+    }
+    
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 123, 255, 0.1);
+    }
+</style>
+{% endblock %}

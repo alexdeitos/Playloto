@@ -2,147 +2,151 @@
 {% load static %}
 <html lang="pt-br">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>{% block title %}{% endblock %}</title>
-  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-  <script type="text/javascript" src="{% static 'js/game_analyse.js' %}"></script>
-  <style>
-    div#navbarSupportedContent1 a{
-      background-color: black;
-      border-radius: 15px;
-      text-align: center;
-      color: white;
-      margin: auto 0;
-      font-weight: bold;
-    }
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'js/game_analyse.js' %}"></script>
+    <style>
+div#navbarSupportedContent1 a{
+  background-color: black;
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+  margin: auto 0;
+  font-weight: bold;
+}
     .simulador_loterias {
       margin-top: 10px;
-   }
+    }
 
-   .button,
-   .properties {
+    .button,
+    .properties {
       margin-top: 10px;
-   }
-  
-   .navbar {
+    }
+
+    .navbar {
       width: 100%; /* Ajuste a largura conforme necessário */
-   }
+    }
 
-  </style>
+    </style>
 
-  {% block script %}
+    {% block script %}
 
-  {% endblock %}
-</head>
+    {% endblock %}
+  </head>
 
-<body>
-  <header class="site-header">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mx-auto d-flex align-items-center">
-      <div class="container-fluid">
-        <a class="navbar-brand" style="font-size:25px;font-weight:bolder;" href="{% url 'apploto:index' %}">AppLoto</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-            <li class="nav-item">
-              {% if user.is_authenticated %}
-            <li>
-              <a href="" class="nav-link" id="usuario" style="font-weight: bolder ;text-transform: capitalize;">Olá,
-                {{ user.get_username }}</a>
-            </li>
-            {% if user.is_staff %}
-            <li>
-              <a href="{% url 'admin:index' %}" class="nav-link" id="usuario"
-                style="font-weight: bolder ;color: blue;">admin</a>
-            </li>
-            {% endif %}
-            <li>
-              <a class="nav-link active" href="{% url 'logout'%}?next={{request.path}}">Logout</a>
-            </li>
-            {% else %}
-            <li>
-              <a class="nav-link active" href="{% url 'login'%}?next={{request.path}}">Login</a>
-            </li>
-            {% endif %}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    {% if user.is_authenticated %}
-    <div class="container">
+  <body>
+    <header class="site-header">
       <nav class="navbar navbar-expand-lg navbar-light bg-light mx-auto d-flex align-items-center">
         <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
+          <a class="navbar-brand" style="font-size:25px;font-weight:bolder;" href="{% url 'apploto:index' %}">AppLoto</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                                                                                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent1">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 menu-index">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
               <li class="nav-item">
-                <a href="{% url 'apploto:index' %}" class="nav-link">Último Sorteio Realizado</a>
+                {% if user.is_authenticated %}
+                <li>
+                  <a href="" class="nav-link" id="usuario" style="font-weight: bolder ;text-transform: capitalize;">Olá,
+                    {{ user.get_username }}</a>
+                </li>
+                {% if user.is_staff %}
+                <li>
+                  <a href="{% url 'admin:index' %}" class="nav-link" id="usuario"
+                                                                     style="font-weight: bolder ;color: blue;">admin</a>
+                </li>
+                {% endif %}
+                <li>
+                  <a class="nav-link active" href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+                </li>
+                {% else %}
+                <li>
+                  <a class="nav-link active" href="{% url 'login'%}?next={{request.path}}">Login</a>
+                </li>
+                {% endif %}
               </li>
-              <li class="nav-item">
-                <a href="{% url 'apploto:mov' %}" class="nav-link">Tabela de Movimentação</a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'apploto:sorteia' %}" class="nav-link">Gerar novo jogo</a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'apploto:descubra' %}" class="nav-link">Validar Acerto Sorteios</a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'apploto:planilha' %}" class="nav-link">Gerar Planilha de Movimentação</a>
-              </li>
-              {% if user.is_staff %}
-              <li class="nav-item">
-                <a href="{% url 'apploto:importar_sorteios' %}" target="_blank" class="nav-link">Importar Sorteios</a>
-              </li>         
-              {% endif %}
             </ul>
           </div>
         </div>
       </nav>
-      <div class="col-1"></div>
-    </div>
-  </header>
-  <section class="corpo container-fluid">
-    {% endif %}
-    {% block conteudo %}
-    {% endblock %}
-  </section>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
-  </script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-KX8zD0AAXXbB9E6f5oplFizT0BukKle7JgMwphf34tc=" crossorigin="anonymous"></script>
-  <script>
+      {% if user.is_authenticated %}
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mx-auto d-flex align-items-center">
+          <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                                         data-bs-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent" aria-expanded="false"
+                                                                                                                                          aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0 menu-index">
+                <li class="nav-item">
+                  <a href="{% url 'apploto:index' %}" class="nav-link">Último Sorteio Realizado</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'apploto:mov' %}" class="nav-link">Tabela de Movimentação</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'apploto:sorteia' %}" class="nav-link">Gerar novo jogo</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'apploto:descubra' %}" class="nav-link">Validar Acerto Sorteios</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'apploto:planilha' %}" class="nav-link">Gerar Planilha de Movimentação</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'apploto:ciclos' %}" class="nav-link">Ciclos de Dezenas</a>
+                </li>
+
+                {% if user.is_staff %}
+                <li class="nav-item">
+                  <a href="{% url 'apploto:importar_sorteios' %}" target="_blank" class="nav-link">Importar Sorteios</a>
+                </li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div class="col-1"></div>
+      </div>
+    </header>
+    <section class="corpo container-fluid">
+      {% endif %}
+      {% block conteudo %}
+      {% endblock %}
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-KX8zD0AAXXbB9E6f5oplFizT0BukKle7JgMwphf34tc=" crossorigin="anonymous"></script>
+    <script>
       $(document).ready(function() {
-          $('#importar-sorteios').click(function() {
-              $.ajax({
-                  url: '{% url 'apploto:importar_sorteios' %}',
-                  type: 'POST',
-                  data: {},
-                  success: function(response) {
-                      alert(response); // Exibe uma mensagem de sucesso
-                      // Você pode adicionar mais lógica aqui, como recarregar a página
-                  },
-                  error: function(xhr, status, error) {
-                      alert('Ocorreu um erro ao importar os sorteios.'); // Exibe uma mensagem de erro
-                      console.error(xhr.responseText); // Exibe o erro no console do navegador
-                  }
-              });
+        $('#importar-sorteios').click(function() {
+          $.ajax({
+            url: '{% url 'apploto:importar_sorteios' %}',
+            type: 'POST',
+            data: {},
+            success: function(response) {
+              alert(response); // Exibe uma mensagem de sucesso
+              // Você pode adicionar mais lógica aqui, como recarregar a página
+            },
+            error: function(xhr, status, error) {
+              alert('Ocorreu um erro ao importar os sorteios.'); // Exibe uma mensagem de erro
+              console.error(xhr.responseText); // Exibe o erro no console do navegador
+            }
           });
+        });
       });
-  </script>
-  
-</body>
+    </script>
+
+  </body>
 
 </html>
