@@ -61,12 +61,12 @@
                     <th scope="col" style="width: 100px;">Data</th>
                     <!-- CORRIGIDO: Agora são apenas 25 dezenas (1 a 25) -->
                     {% for i in "12345678910111213141516171819202122232425"|make_list|slice:":25" %}
-                        <th scope="col" class="text-center" style="width: 30px; padding: 1px; font-size: 0.8em;">
+                        <th scope="col" class="text-center" style="width: 30px; padding: 1px; font-size: 1em;">
                             {{ forloop.counter }}
                         </th>
                     {% endfor %}
-                    <th scope="col" style="min-width: 30px;">Pendentes</th>
-                    <th scope="col" style="width: 70px;">Total</th>
+                    <th scope="col" style="width: 100px;">Pendentes</th>  <!-- REDUZIDO de min-width para width fixo -->
+                    <th scope="col" style="width: 60px;">Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -110,11 +110,13 @@
                         {% endwith %}
                     {% endfor %}
                     
-                    <td class="text-center" style="font-size: 0.8em;">
+                    <td class="text-center" style="font-size: 1.2em; padding: 2px 4px;">
                         {% if dado.dezenas_pendentes %}
-                            <small class="d-block">{{ dado.dezenas_pendentes|join:", " }}</small>
+                            <div class="dezenas-pendentes">
+                                {{ dado.dezenas_pendentes|join:", " }}
+                            </div>
                         {% else %}
-                            <span class="badge bg-success" style="font-size: 0.7em;">Completo</span>
+                            <span class="badge bg-success" style="font-size: 0.65em;">Completo</span>
                         {% endif %}
                     </td>
                     <td class="text-center fw-bold 
@@ -174,6 +176,27 @@
     
     .table-hover tbody tr:hover {
         background-color: rgba(0, 123, 255, 0.1);
+    }
+    
+    /* Estilo para as dezenas pendentes - texto mais compacto */
+    .dezenas-pendentes {
+        font-size: 0.7em;
+        line-height: 1.2;
+        word-wrap: break-word;
+        max-width: 100px;
+    }
+    
+    /* Para telas muito pequenas, reduz ainda mais */
+    @media (max-width: 768px) {
+        .dezenas-pendentes {
+            font-size: 0.65em;
+        }
+        
+        th:nth-child(1), td:nth-child(1) { width: 50px !important; } /* Ciclo */
+        th:nth-child(2), td:nth-child(2) { width: 70px !important; } /* Concurso */
+        th:nth-child(3), td:nth-child(3) { width: 90px !important; } /* Data */
+        th:nth-child(31), td:nth-child(31) { width: 80px !important; } /* Pendentes */
+        th:nth-child(32), td:nth-child(32) { width: 50px !important; } /* Total */
     }
 </style>
 {% endblock %}
